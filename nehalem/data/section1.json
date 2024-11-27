@@ -1,0 +1,48 @@
+[
+    {
+        "id": "1",
+        "title": "The Nehalem River Watershed",
+        "description": "The Nehalem River winds over 100 miles through the Coast Range in northwestern Oregon from its headwaters near Giveout Mountain southwest of Vernonia before draining into the Pacific Ocean near Manzanita. Most of the watershed is sparsely populated, although some major roads run through it including US-26, the most popular route for people living in Portland to reach the coast. The watershed is home to an abundance of wildlife and natural resources, including timber, deer, and several varieties of salmon. ",
+        "section": "1",
+        "type": "image",
+        "sidebarPosition": "left",
+        "image1": "images/nehalemfall.png"
+    },
+    {
+        "id": "2",
+        "title": "Coho Salmon",
+        "description": "Coho salmon (Oncorhynchus kisutch) are an anadromous species and one of five main species that live along the Pacific coast and spend time in Oregon's rivers. There are currently efforts underway, including the Nehalem Strategic Action Plan, to conserve this important species and restore habitat that has been lost or degraded all along throughout this region. ",
+        "section": "1",
+        "type": "image",
+        "sidebarPosition": "right",
+        "image1": "images/cohosalmon.png"
+    },
+    {
+        "id": "3",
+        "title": "Salmon lifecycle",
+        "description": "Portions of the life cycle of salmon are particularly vulnerable to disruptions caused by human activity and climate change, although all stages are threatened in some way.",
+        "section": "1",
+        "type": "image",
+        "sidebarPosition": "left",
+        "image1": "images/salmonlifecycle.png"
+    },
+    {
+        "id": "4",
+        "title": "Strategic Action Plan",
+        "description": "The Strategic Action Plan for the Protection Plan of Coho Salmon Habitat in the Nehalem River, or the Nehalem SAP for short, has laid out six main goals to restore watershed function for the salmon lifecycle.  ",
+        "section": "1",
+        "type": "image",
+        "sidebarPosition": "center",
+        "image1": "images/salmoncon.png"
+    },
+    {
+        "id": "5",
+        "title": "Familiarize Yourself with the Watershed",
+        "description": "Click on points throughout the map to see more detailed information about the area and actions being taken to protect Coho salmon. Photos without specific attribution come from the Nehalem SAP. ",
+        "section": "1",
+        "type": "map",
+        "sidebarPosition": "left",
+        "image1": ""
+    }
+]
+   

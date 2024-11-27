@@ -1,0 +1,93 @@
+[
+    {
+        "id": "1",
+        "title": "Oregon White Oaks: Unsung Heroes",
+        "description": "The Oregon white oak (Quercus garryana) is an iconic tree for many of us. Adults stand up to 90 feet tall and spread their branches wide over the surrounding grasslands.  This tree species has become an increasing focus for conservationists in recent years, as the important role it plays as a keystone species in many habitats of the Northwest has become more and more clear.",
+        "section": "1",
+        "type": "image",
+        "sidebarPosition": "left",
+        "image1": "images/oak2.png",
+        "image2": ""
+    },
+    {
+        "id": "2",
+        "title": "Oak Woodlands",
+        "description": "Oak trees provide a wide variety of animals with ideal habitats. This is especially true of oak woodlands, which are open, grassy, often riparian areas where mature oak trees grow and have room to spread their canopies, as well as oak savannas which are drier. Oaks can grow in a diverse range of soils, including both well-drained and moist soils, but are sensitive to competition from other tree species  [1] . In addition, they are slow growing and saplings are easily driven out by invasive undergrowth species.",
+        "section": "1",
+        "type": "image",
+        "sidebarPosition": "right",
+        "image1": "images/oak3.png",
+        "image2": ""
+    },
+    {
+        "id": "3",
+        "title": "Oak Fauna",
+        "description": "The slender-billed white-breasted nuthatch (Sitta carolinensis) is one bird species that calls oak woodlands home. Mature trees, which often have dead branches filled with insects, are especially important for nuthatches  [2] . ",
+        "section": "1",
+        "type": "image",
+        "sidebarPosition": "left",
+        "image1": "images/nuthatch.png",
+        "image2": ""
+    },
+    {
+        "id": "4",
+        "title": "",
+        "description": "Many woodpecker species, like the hairy woodpecker (Leuconotopicus villosus), also depend on mature oak trees for food and nesting areas. ",
+        "section": "1",
+        "type": "image",
+        "sidebarPosition": "right",
+        "image1": "images/woodpecker.png",
+        "image2": ""
+    },
+    {
+        "id": "5",
+        "title": "",
+        "description": "The Douglas’ squirrel (Tamiasciurus douglasii) is one mammal species that depends on the oak as well. Squirrels can often be seen foraging for acorns and nesting in hollowed out oak trunks. ",
+        "section": "1",
+        "type": "image",
+        "sidebarPosition": "right",
+        "image1": "images/squirrel.png",
+        "image2": ""
+    },
+    {
+        "id": "6",
+        "title": "",
+        "description": "It's not just animals that coexist happily with the oak. Many local herbaceous plants grow in oak woodlands and savannas, including camas (Camassia quamash) on the left and Pacific trillium (Trillium ovatum) on the right.",
+        "section": "1",
+        "type": "swipe",
+        "sidebarPosition": "center",
+        "image1": "images/camas.png",
+        "image2": "images/trillium.png"
+    },
+    {
+        "id": "7",
+        "title": "A Disappearing Habitat",
+        "description": "With all these species depending on Oregon white oak, it is easy to see the importance of the trees. However, oak savannas, which once covered much of the Willamette Valley, have all but disappeared since the arrival of European settlers in the 17th century- only 6% of the original extent remains  [1] . Small areas of untouched oak savanna still dot the landscape, like this patch near Mosier. But much of the vast stretches of the treasured habitat are gone",
+        "section": "1",
+        "type": "image",
+        "sidebarPosition": "left",
+        "image1": "images/woodlands.png",
+        "image2": ""
+    },
+    {
+        "id": "8",
+        "title": "Long Hallowed Trees",
+        "description": "Native peoples throughout the West Coast have long revered oak trees. In Oregon, tribes often maintained oak woodlands by carrying out carefully timed prescribed burns to keep competing species at bay and maintain the open oak woodlands that once covered large swaths of the region  [3] . When European settlers arrived in the region, they cut down oaks to clear space for farmland and timber plantations. In addition, there was a focus on preventing wildfires, which caused oaks to lose more and more ground to quicker growing trees like Oregon ash (Fraxinus latifolia) and Douglas fir (Pseudotsuga menziesii). ",
+        "section": "1",
+        "type": "image",
+        "sidebarPosition": "center",
+        "image1": "images/natives.png",
+        "image2": ""
+    },
+    {
+        "id": "9",
+        "title": "Oaks Among Us",
+        "description": "While the largest stretches of continuous oak habitat have vanished, oak trees can still be found, even in the Portland area. Many of these trees are planted in parks and backyards, as oak tree remains a popular decorative tree. We will take a look at some of these oak trees that live among us and see how they can still provide us and our animal neighbors value. ",
+        "section": "1",
+        "type": "image",
+        "sidebarPosition": "left",
+        "image1": "images/oak4.png",
+        "image2": ""
+    }
+]
+   

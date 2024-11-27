@@ -1,0 +1,422 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: fit-content;
+    background-color: rgb(4, 19, 32);
+}
+
+
+header {
+    height: 90vh;
+    background-image: url('images/salmonlogo.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    color: white;
+    display: flex;
+}
+
+header h1 {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    margin: 0;
+    padding: 0;
+    width: 30%;
+}
+
+nav {
+    background-color: #333;
+    padding: 10px;
+    position: sticky;
+    top: 0; 
+    z-index: 100;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav li {
+    margin: 0 15px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+nav a:hover {
+    background-color: #444; 
+}
+
+main {
+    width: 100%;
+}
+
+section {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    margin-bottom: 200px;
+}
+
+.content-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: calc(100vh - 20px); 
+    width: 100%;
+}
+
+.image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: calc(100vh - 20px); 
+    width: 100%;
+    z-index: 2;
+}
+
+.logo-container {
+    display: grid;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.logo-container li {
+    font-size: 12px;
+}
+
+.logo-container h3 {
+    font-size: 14px;
+}
+
+@media (min-width: 1024px) {
+    .logo-container {
+        grid-template-columns: repeat(6, 1fr);
+        grid-auto-rows: 200px;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1023px) {
+    nav li {
+        font-size: 12px;
+    }
+    
+    .logo-container {
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: 120px;
+    }
+
+    .logo-container li {
+        font-size: 10px;
+    }
+
+    .logo-container h3 {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    nav li {
+        font-size: 10px;
+    }
+    
+    .logo-container {
+        grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: 120px;
+    }
+
+    .logo-container li {
+        font-size: 8px;
+    }
+
+    .logo-container h3 {
+        font-size: 10px;
+    }
+}
+
+.logo-card {
+    perspective: 1000px;
+    position: relative;
+    animation: float 5s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.logo-front, .logo-back {
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    backface-visibility: hidden;
+    transition: transform 0.6s;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.logo-front img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    border-radius: 10px;
+}
+
+.logo-back {
+    background-color: #f1f1f1;
+    color: #333;
+    transform: rotateY(180deg);
+    text-align: center;
+    border-radius: 10px;
+    overflow-y: auto;
+}
+
+.logo-card:hover .logo-front {
+    transform: rotateY(-180deg);
+    animation-play-state: paused; 
+}
+
+.logo-card:hover .logo-back {
+    transform: rotateY(0);
+    animation-play-state: paused;
+}
+
+.data-map {
+    z-index: 1;
+}
+
+.basin-map {
+    z-index: 0;
+}
+
+.basin-map.active {
+    z-index: 2; 
+}
+
+.sidebar {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    height: 100%;
+    width: 30%; 
+    overflow-y: auto;
+    z-index: 3;
+    background: transparent;
+    padding: 10px;
+    scrollbar-width: none;
+}
+
+#sidebar1 {
+    height: 100vh;
+    width: 100%;
+    overflow-y: scroll;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#sidebar2 {
+    pointer-events: auto;
+}
+
+button.switch-button {
+    position: absolute;
+    bottom: 8%;
+    right: 3%;
+    z-index: 4;
+    padding: 10px 15px;
+    font-size: 14px;
+    height: 150px;
+    width: 200px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    background-image: url('images/basin.svg');
+    background-size: 200px 129px;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+}
+
+button.toggle-sidebar-button {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        height: 100%;
+        z-index: 5;
+        width: 80%;
+        background:rgb(4, 19, 32, 0.3);
+        transition: width 0.2s ease, margin-left 0.3s ease;
+    }
+
+    #sidebar1 {
+        width: 100%;
+        background-color: (4, 19, 32, 0);
+        z-index: 5;
+    }
+
+    .sidebar.collapsed {
+        width: 0px;
+    }
+
+    #sidebar1.collapsed {
+        width: 0%;
+    }
+
+    .map {
+        margin-left: 0;
+    }
+
+    button.switch-button {
+        height: 100px;
+        width: 130px;
+        right: 0%;
+        background-size: 130px 85px;
+    }
+
+    button.toggle-sidebar-button {
+        display: block;
+        position: absolute;
+        top: 8%;
+        right: 0%;
+        z-index: 6;
+        padding: 10px 15px;
+        font-size: 14px;
+        height: 50px;
+        width: 50px;
+        background-color: #333;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+}
+
+button.switch-button:hover {
+    background-color:rgb(70, 99, 99);
+}
+
+.switch-button-text {
+    position: absolute;
+    align-content: center;
+    bottom: 5px;
+}
+
+.image.fade-out {
+    opacity: 0;
+}
+
+#image1 {
+    background-image: url('images/nehalemfall.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#map1 {
+    z-index: 0;
+    visibility: hidden;
+}
+
+#map1.active {
+    z-index: 3;
+    visibility: visible;
+}
+
+.fade-out {
+    transition: opacity 0.2s ease-out;
+    opacity: 0;
+}
+
+.slide1 {
+    position: relative;
+    background: rgb(4, 19, 32, 0.8);
+    min-height: 200px;
+    height: auto;
+    z-index: 11;
+    max-width: 300px;
+    padding: 50px;
+    margin-bottom: 400px;
+    margin-top: 300px;
+    box-sizing: border-box;
+    pointer-events: auto;
+    color: white;
+}
+
+.slide {
+    position: relative;
+    background: rgb(4, 19, 32, 0.8);
+    min-height: 200px;
+    height: auto;
+    z-index: 11;
+    min-width: 300px;
+    padding: 50px;
+    margin-bottom: 400px;
+    margin-top: 300px;
+    box-sizing: border-box;
+    pointer-events: auto;
+    color: white;
+}
+
+.legend-container {
+    height: auto;
+    background-color: #fff;
+    color: black;
+    padding: 5px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    margin-left: 5px;
+    top: 5px;
+}
+
+.legend-label {
+    font-size: 14px;
+}
+
+.basin-legend {
+    display: none;
+}
+
+.data-legend {
+    display: block;
+}
+
+.basin-legend.active {
+    display: block;
+}
+
+.data-legend.inactive {
+    display: none;
+}

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nehalem Watershed GIS</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Nehalem Watershed Salmon Conservation</h1>    
+    </header>
+
+    <nav>
+        <ul>
+        <li><a href="#section1">Background Information</a></li>
+        <li><a href="#section1-5">Data Sources</a></li>
+        <li><a href="#section2">Watershed Overview</a></li>
+        <li><a href="#section3">Forest Characteristics</a></li>
+        <li><a href="#section4">Salmon Habitat</a></li>
+        <li><a href="#section5">Data View</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <section id="section1">
+            <div class="content-container">
+                <div class="image" id="image1"></div>
+                <div class="map" id="map1"></div>
+                <div class="sidebar" id="sidebar1"></div>
+                <button class="toggle-sidebar-button" id="sidebar1-switch">&lt;&lt;</button>
+            </div>
+        </section>
+        
+        <section id="section1-5">
+            <div class="logo-container">
+                <div class="logo-card">
+                    <div class="logo-front">
+                        <img src="images/datalogos/blm.png" alt="Organization Logo">
+                    </div>
+                    <div class="logo-back">
+                        <h3>Bureau of Land Management</h3>
+                        <ul>
+                            <li>Roads and Highways</li>
+                            <li>Land Management Designations</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-front">
+                        <img src="images/datalogos/usgs.jpeg" alt="Organization Logo">
+                    </div>
+                    <div class="logo-back">
+                        <h3>United States Geological Service</h3>
+                        <ul>
+                            <li>NLCD Landcover Data</li>
+                            <li>LANDSAT Satellite Imagery</li>
+                            <li>gSSURGO Soil Data</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-front">
+                        <img src="images/datalogos/usfs.png" alt="Organization Logo">
+                    </div>
+                    <div class="logo-back">
+                        <h3>United States Forest Service</h3>
+                        <ul>
+                            <li>NorWEST Temperature Monitoring</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-front">
+                        <img src="images/datalogos/usfws.png" alt="Organization Logo">
+                    </div>
+                    <div class="logo-back">
+                        <h3>United States Fish & Wildlife Service</h3>
+                        <ul>
+                            <li>Hydrological Unit Designations</li>
+                            <li>National Wetland Inventories</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-front">
+                        <img src="images/datalogos/census.png" alt="Organization Logo">
+                    </div>
+                    <div class="logo-back">
+                        <h3>Bureau of the Census</h3>
+                        <ul>
+                            <li>Census Block Tiger Files</li>
+                            <li>2022 ACS Survey Data</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-front">
+                        <img src="images/datalogos/usda.png" alt="Organization Logo">
+                    </div>
+                    <div class="logo-back">
+                        <h3>United States Department of Agriculture</h3>
+                        <ul>
+                            <li>Precipitation Data</li>
+                            <li>Soil Data</li>
+                            <li>Climate Change Scenario Data</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-front">
+                        <img src="images/datalogos/odf.jpeg" alt="Organization Logo">
+                    </div>
+                    <div class="logo-back">
+                        <h3>Oregon Department of Forestry</h3>
+                        <ul>
+                            <li>Hydrography</li>
+                            <li>Landslide Data</li>
+                            <li>Stand Level Inventories</li>
+                            <li>Managed Land</li>
+                            <li>Seed Zones</li>
+                            <li>Habitat Conservation Areas</li>
+                            <li>Timber Sales</li>
+                            <li>Roads</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-front">
+                        <img src="images/datalogos/odfw.jpeg" alt="Organization Logo">
+                    </div>
+                    <div class="logo-back">
+                        <h3>Oregon Department of Fish & Wildlife</h3>
+                        <ul>
+                            <li>Essential Salmon Habitat</li>
+                            <li>Fish Distribution</li>
+                            <li>Coho IP</li>
+                            <li>Fish Passage Barriers</li>
+                            <li>OWRI</li>
+                            <li>AQI</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-front">
+                        <img src="images/datalogos/dogami.png" alt="Organization Logo">
+                    </div>
+                    <div class="logo-back">
+                        <h3>Oregon Department of Geology and Minerals</h3>
+                        <ul>
+                            <li>LiDAR Data</li>
+                            <li>Landslide Risk</li>
+                            <li>Geological Data</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-front">
+                        <img src="images/datalogos/dsl.jpeg" alt="Organization Logo">
+                    </div>
+                    <div class="logo-back">
+                        <h3>Oregon Department of State Lands</h3>
+                        <ul>
+                            <li>Essential Salmon Habitat</li>
+                            <li>Local Wetland Inventories</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-front">
+                        <img src="images/datalogos/counties.jpeg" alt="Organization Logo">
+                    </div>
+                    <div class="logo-back">
+                        <h3>Clatsop, Columbia, Tillamook, and Washington Counties</h3>
+                        <ul>
+                            <li>Taxlots</li>
+                            <li>Roads</li>
+                            <li>Boundaries</li>
+                            <li>City Limits</li>
+                            <li>Parks</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-front">
+                        <img src="images/datalogos/unwc.jpeg" alt="Organization Logo">
+                    </div>
+                    <div class="logo-back">
+                        <h3>Upper Nehalem Watershed Council</h3>
+                        <ul>
+                            <li>Salmon Rapid Bio Assessments</li>
+                            <li>Stream Surveys</li>
+                            <li>HOBO Temperature Data</li>
+                            <li>LWD Project Locations</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-front">
+                        <img src="images/datalogos/lnwc.jpeg" alt="Organization Logo">
+                    </div>
+                    <div class="logo-back">
+                        <h3>Lower Nehalem Watershed Council</h3>
+                        <ul>
+                            <li>Salmon Rapid Bio Assessments</li>
+                            <li>GPS Points</li>
+                            <li>Fish Passage Barrier Locations</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-front">
+                        <img src="images/datalogos/tw.png" alt="Organization Logo">
+                    </div>
+                    <div class="logo-back">
+                        <h3>Terrain Works</h3>
+                        <ul>
+                            <li>NetMap Watershed Model</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-front">
+                        <img src="images/datalogos/osu.jpeg" alt="Organization Logo">
+                    </div>
+                    <div class="logo-back">
+                        <h3>Oregon State University</h3>
+                        <ul>
+                            <li>LEMMA Data</li>
+                            <li>Swiss Needle Cast Surveys</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-front">
+                        <img src="images/datalogos/psu.png" alt="Organization Logo">
+                    </div>
+                    <div class="logo-back">
+                        <h3>Portland State University</h3>
+                        <ul>
+                            <li>2001 Nehalem Watershed Assessment</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="logo-card">
+                    <div class="logo-front">
+                        <img src="images/datalogos/esri.png" alt="Organization Logo">
+                    </div>
+                    <div class="logo-back">
+                        <h3>ESRI</h3>
+                        <ul>
+                            <li>Historical Tribal Land</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section2">
+            <div class="content-container">
+                <div class="map data-map" id="data-map2"></div>
+                <div class="map basin-map" id="basin-map2"></div>
+                <div class="sidebar" id="sidebar2"></div>
+                <button class="toggle-sidebar-button" id="sidebar2-switch">&lt;&lt;</button>
+                <button class="switch-button" id="switch-button4" map-icon="image/basin.png"><span class="switch-button-text">View Basins</span></button>
+        </div>
+        </section>
+        <section id="section3">
+            <div class="content-container">
+                <div class="map data-map" id="data-map3"></div>
+                <div class="map basin-map" id="basin-map3"></div>
+                <div class="sidebar" id="sidebar3"></div>
+                <button class="toggle-sidebar-button" id="sidebar3-switch">&lt;&lt;</button>
+                <button class="switch-button" id="switch-button4" map-icon="image/basin.png"><span class="switch-button-text">View Basins</span></button>
+            </div>
+        </section>
+        <section id="section4">
+            <div class="content-container">
+                <div class="map data-map" id="data-map4"></div>
+                <div class="map basin-map" id="basin-map4"></div>
+                <div class="sidebar" id="sidebar4"></div>
+                <button class="toggle-sidebar-button" id="sidebar4-switch">&lt;&lt;</button>
+                <button class="switch-button" id="switch-button4" map-icon="image/basin.png"><span class="switch-button-text">View Basins</span></button>
+            </div>
+        </section>
+        <section id="section5">
+            <iframe src="https://experience.arcgis.com/experience/5882f361d0044848991181222500873f" style="position: absolute; height: 100%; width: 100%; border: none"></iframe>
+
+        </section>
+    </main>
+
+    <script src="section1.js"></script>
+    <script src="section2.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+header {
+    height: 35vh;
+}
+
+nav {
+    background-color: #333;
+    padding: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    display: inline-block;
+    margin-right:  15px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+nav a:hover {
+    background-color: #444;
+}
+
+section {
+    padding: 20px;
+}
+
+section {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+}
+
+.content-container {
+    height: 100vh;
+    overflow-y: scroll;
+    position: relative;
+}
+
+.map {
+    height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+    transition: opacity 0.2s ease-in-out;
+    opacity: 1;
+}
+
+.map.fade-out {
+    opacity: 0;
+}
+
+#map1 {
+    background-image: url('images/oak2.png');
+}
+
+.sidebar {
+    height: 100vh;
+    width: 100%;
+    overflow-y: scroll;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#sidebar2 {
+    pointer-events: auto;
+    width: 40%;
+    scrollbar-width: none;
+}
+
+.slide {
+    position: relative;
+    background: rgba(255, 255, 255, 0.9);
+    min-height: 200px;
+    height: auto;
+    z-index: 11;
+    width: 500px;
+    padding: 50px;
+    margin-bottom: 400px;
+    margin-top: 300px;
+    box-sizing: border-box;
+    pointer-events: auto;
+}
