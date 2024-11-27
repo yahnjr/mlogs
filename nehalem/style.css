@@ -264,6 +264,14 @@ button.toggle-sidebar-button {
 }
 
 @media (max-width: 768px) {
+    section {
+        height: 80vh;
+    }
+
+    .map, .image {
+        height: 100%;
+    }
+    
     .sidebar {
         height: 100%;
         z-index: 5;
@@ -273,7 +281,7 @@ button.toggle-sidebar-button {
     }
 
     #sidebar1 {
-        width: 100%;
+        width: 90%;
         background-color: (4, 19, 32, 0);
         z-index: 5;
     }
@@ -301,7 +309,7 @@ button.toggle-sidebar-button {
         display: block;
         position: absolute;
         top: 8%;
-        right: 0%;
+        left: 0%;
         z-index: 6;
         padding: 10px 15px;
         font-size: 14px;
