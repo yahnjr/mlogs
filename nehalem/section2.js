@@ -13,7 +13,6 @@ function initializeMap(mapId, mapOptions) {
     });
 }
 
-// Initialize each map with its specific options
 initializeMap("data-map2", { style: "mapbox://styles/mapbox/satellite-streets-v11", bounds: [[-125, 45.52], [-122.93, 46.14]], zoom: 9 });
 initializeMap("basin-map2", { style: "mapbox://styles/mapbox/dark-v11", bounds: [[-125, 45.52], [-122.93, 46.14]], zoom: 9 });
 initializeMap("data-map3", { style: "mapbox://styles/mapbox/satellite-streets-v11", bounds: [[-125, 45.52], [-122.93, 46.14]], zoom: 9 });

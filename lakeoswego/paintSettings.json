@@ -11,6 +11,12 @@
       "circle-color": "#f724c7",
       "circle-stroke-color": "black"
     },
+    "survey_results": {
+      "circle-radius": 2,
+      "circle-stroke-width": 0.3,
+      "circle-color": "#fc0377",
+      "circle-stroke-color": "#fcba03"
+    },
     "Tree_size_classification": {
       "circle-stroke-width": 0,
       "circle-color": [

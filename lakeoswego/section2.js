@@ -20,7 +20,6 @@ let currentLayers = ["data/points/OakPoints.geojson"];
 let layersToAdd = [];
 let layersToDelete = [];
 
-// Function to create a slide in the sidebar
 function createSlide2(slide, sidebarId) {
     var sidebarSlide = document.createElement('div');
     sidebarSlide.className = 'slide';
@@ -36,7 +35,6 @@ function createSlide2(slide, sidebarId) {
     <p>${slide.description}</p>
     `;
 
-    // Set the sidebar position
     if (slide.sidebarPosition === "center") {
         sidebarSlide.style.left = "50%";
         sidebarSlide.style.transform = "translateX(-50%)";
@@ -51,7 +49,6 @@ function createSlide2(slide, sidebarId) {
     document.getElementById(sidebarId).appendChild(sidebarSlide);
 }
 
-// Function to update the layers list and manage layers to add or delete
 function updateLayersLists(currentLayersArray, slide) {
   const requiredLayers = [];
 
@@ -67,7 +64,6 @@ function updateLayersLists(currentLayersArray, slide) {
   const requiredLayersSet = new Set(requiredLayers);
   const currentLayersSet = new Set(currentLayersArray);
 
-  // Calculate layers to delete and add
   const layersToDelete = [...currentLayersSet].filter(layer => !requiredLayersSet.has(layer));
   const layersToAdd = [...requiredLayersSet].filter(layer => !currentLayersSet.has(layer));
 
@@ -78,7 +74,6 @@ function updateLayersLists(currentLayersArray, slide) {
   };
 }
 
-// Preload event listener for map loading
 map2.on('load', () => {
   map2.addSource('OakPoints', {
     type: 'geojson',
@@ -100,11 +95,9 @@ map2.on('load', () => {
   console.log('Map loaded');
 });
 
-// Function to add a layer to the map
 function addLayerToMap(layerPath) {
   const layerId = layerPath.split('/').pop().split('.')[0];
 
-  // Fetch and add GeoJSON data to the map
   fetch(layerPath)
     .then(response => response.json())
     .then(data => {
@@ -137,7 +130,6 @@ function addLayerToMap(layerPath) {
     });
 }
 
-// Function to update the map based on the visible slide
 function mapSlideUpdate(slide) {
   const { requiredLayers, layersToDelete, layersToAdd } = updateLayersLists(currentLayers, slide);
   
@@ -167,31 +159,47 @@ function mapSlideUpdate(slide) {
   });
 }
 
-// Function to detect visible slide and update the map accordingly
-function changeLayers(sidebarID, mapID) {
+function changeLayersWithObserver(sidebarID, mapID) {
   const sidebar = document.getElementById(sidebarID);
   const slides = sidebar.getElementsByClassName('slide');
 
-  sidebar.addEventListener('scroll', () => {
-    for (var i = 0; i < slides.length; i++) {
-      var slide = slides[i];
-      var slideBox = slide.getBoundingClientRect();
-      var sidebarRect = sidebar.getBoundingClientRect();
+  const threshold = window.innerWidth < 768 ? 0.5 : 0.8;
 
-      var visiblePercentage = (
-        Math.min(slideBox.bottom, sidebarRect.bottom) -
-        Math.max(slideBox.top, sidebarRect.top)
-      ) / slideBox.height;
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const slide = entry.target;
+          const index = Array.prototype.indexOf.call(slides, slide);
 
-      if (visiblePercentage >= 0.8) {
-        mapSlideUpdate(slide);
-        break;
-      }
+          let newStyle = null;
+          if (index === 5) {
+            newStyle = 'mapbox://styles/mapbox/standard-satellite';
+          } else if (index === 7) {
+            newStyle = 'mapbox://styles/iformaher/clic1xztq00da01o7fhm6bofw';
+          }
+
+          if (newStyle) {            
+            map2.once('styledata', () => {
+              mapSlideUpdate(slide);
+            });
+
+            map2.setStyle(newStyle);
+          } else {
+            mapSlideUpdate(slide);
+          }
+        }
+      });
+    },
+    {
+      root: sidebar,
+      threshold: threshold,
     }
-  });
+  );
+
+  Array.from(slides).forEach((slide) => observer.observe(slide));
 }
 
-// Function to create slides and handle map-layer updates
 function populateSection2(data) {
   data.forEach(function(slide) {
     const sidebarID = "sidebar2";
@@ -200,7 +208,7 @@ function populateSection2(data) {
     createSlide2(slide, sidebarID);
     console.log(`Slide ${slide.id} created`);
 
-    changeLayers(sidebarID, mapID);
+    changeLayersWithObserver(sidebarID, mapID);
   });
 }
 
@@ -212,16 +220,3 @@ document.addEventListener('DOMContentLoaded', function() {
       })
       .catch(error => console.error('Error fetching or parsing JSON:', error));
 });
-
-
-// function logMapInfo(map) {
-//   map.on('move', () => {
-//     const center = map.getCenter();
-//     const zoom = map.getZoom();
-
-//     console.log(`Center: ${center.lng}, ${center.lat}`);
-//     console.log(`Zoom: ${zoom}`);
-//   });
-// }
-
-// logMapInfo(map2);

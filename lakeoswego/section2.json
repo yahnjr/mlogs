@@ -69,7 +69,8 @@
         "id": "16",
         "title": "",
         "description": "Once this has been calculated for every tree circle, a basic classification as small, medium, or large (mature) can be applied to the tree points and they can be roughly categorized. ",
-        "sidebarPosition": "left",        "layer1": "data/circle/Tree_size_classification.geojson",
+        "sidebarPosition": "left",        
+        "layer1": "data/circle/Tree_size_classification.geojson",
         "layer2": "",
         "layer3": "",
         "coordinates": "[-122.69943605255233, 45.398225162109014]",
@@ -257,7 +258,7 @@
         "description": "The red points come from a tree survey conducted by the Oswego Lake Watershed Council, looking for oak trees in the northern part of the city. These points also fall outside of our blindspot areas- indicating that these oak trees are accounted for. However, this does not mean there are more trees to be discovered out there! If you happen upon an oak tree, you can add it to this map using  the survey  built for this project!",
         "sidebarPosition": "left",
         "layer1": "data/fill/PossibleBlindspots.geojson",
-        "layer2": "data/circle/OR_oak_Clip.geojson",
+        "layer2": "data/circle/survey_results.geojson",
         "layer3": "",
         "coordinates": "[-122.7159477393521, 45.40928594714966]",
         "zoom": "11.5"

@@ -51,34 +51,25 @@ map1.on('load', () => {
           });
       });
 
-    fetch('data/circle/poi.geojson')
+      fetch('data/circle/poi.geojson')
       .then(response => response.json())
       .then(poidata => {
           poidata.features.forEach(feature => {
-                const markerElement = document.createElement('div');
-                markerElement.className = 'custom-marker';
+              const { OBJECTID, Description } = feature.properties;
+              const popupContent = `
+                  <div style="text-align: center;">
+                      <img src="images/poi/${OBJECTID}.png" 
+                          alt="Image for ${OBJECTID}" 
+                          style="width: 200px; max-width: 100%; height: auto;">
+                      <p>${Description}</p>
+                  </div>
+              `;
 
-                markerElement.style.width = '20px';
-                markerElement.style.height = '20px';
-                markerElement.style.backgroundColor = '#ff5722';
-                markerElement.style.borderRadius = '50%';
-                markerElement.style.cursor = 'pointer';
-
-                const { OBJECTID, Description } = feature.properties;
-                const popupContent = `
-                    <div style="text-align: center;">
-                        <img src="images/poi/${OBJECTID}.png" 
-                            alt="Image for ${OBJECTID}" 
-                            style="width: 200px; max-width: 100%; height: auto;">
-                        <p>${Description}</p>
-                    </div>
-                `;
-
-                new mapboxgl.Marker(markerElement)
-                    .setLngLat(feature.geometry.coordinates)
-                    .setPopup(new mapboxgl.Popup({ offset: 25 }) // Add popups
-                        .setHTML(popupContent))
-                    .addTo(map1);
+              new mapboxgl.Marker()
+                  .setLngLat(feature.geometry.coordinates)
+                  .setPopup(new mapboxgl.Popup({ offset: 25 })
+                      .setHTML(popupContent))
+                  .addTo(map1);
           });
       });
 });

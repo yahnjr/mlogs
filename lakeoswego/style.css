@@ -9,7 +9,7 @@ header {
 }
 
 nav {
-    background-color: #333;
+    background-color: #213628;
     padding: 10px;
     position: sticky;
     top: 0;
@@ -20,6 +20,8 @@ nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
 }
 
 nav li {
@@ -35,10 +37,6 @@ nav a {
 
 nav a:hover {
     background-color: #444;
-}
-
-section {
-    padding: 20px;
 }
 
 section {
@@ -76,6 +74,7 @@ section {
     height: 100vh;
     width: 100%;
     overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; 
     position: absolute;
     top: 0;
     left: 0;
