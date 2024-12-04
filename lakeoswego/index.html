@@ -9,21 +9,24 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
 </head>
 <body>
-    <header>White Oaks in Lake Oswego</header>
+    <header>
+        <h2>Oregon White Oaks in Lake Oswego</h2>
+    </header>
     
     <nav>
         <ul>
           <li><a href="#section1">Background</a></li>
           <li><a href="#section2">Lake Oswego Oaks</a></li>
           <li><a href="#section3">Final Map</a></li>
-          <li><a href="#section4">Conservation Strategies</a></li>
-          <li><a href="#section5">Workflow Diagram & Data Sources</a></li>
-          <li><a href="#section6">Citations & Acknowledgements</a></li>
+          <li><a href="#conservation">Conservation Strategies</a></li>
+          <li><a href="#data-doc">Workflow Diagram & Data Sources</a></li>
+          <li><a href="#section7">Citations & Acknowledgements</a></li>
         </ul>  
         
     </nav>
-    
-    <h1>Background Information</h1>
+    <div class="between-sections">
+        <h1>Background Information</h1>
+    </div>
     
     <section id="section1">
         <div class="content-container">
@@ -31,8 +34,10 @@
             <div class="sidebar" id="sidebar1"></div>
         </div>
     </section>
-    
-    <h1>Lake Oswego White Oaks</h1>
+
+    <div class="between-sections">
+        <h1>Lake Oswego White Oaks</h1>
+    </div>
 
     <section id="section2">
         <div class="content-container">
@@ -40,10 +45,102 @@
             <div class="sidebar" id="sidebar2"></div>
         </div>
     </section>
+
+    <div class="between-sections">
+        <h1>Final Map</h1>
+        <p>A button in the top right of the map application below will open a full screen version. </p>
+    </div>
+
     <section id="section3">
-        <div class="map" id="map3">
-            <div class="sidebar" id="sidebar3"></div>
+        <iframe src="https://experience.arcgis.com/experience/74844e1c2e114b30846d2f72f48422b6"></iframe>
+    </section>
+
+    <div class="between-sections" id="conservation">
+        <h1>Conservation Strategies</h1>
+        <p>It is important for residents in this area to not only understand the vital role that Oregon white oaks play, but also how to keep them healthy. Mature oaks provide many valuable ecosystem services, but most oak trees do not reach maturity in the wild and the survival rate is even lower in urban environments. One major step conservationists can take is monitoring for and removal of invasive species, which drive out native plants and can overcrowd growing oak saplings. There are some native plants as well that must be managed to reduce the risk of competition with young oak trees. Below are some of the plants of interest.</p>
+    </div>
+
+    <section id="section4">
+        <div id="plants-container">
+            <div class="image-wrapper">
+                <img src="images/herbrobert.jpeg" alt="Herb Robert">
+                <div class="info-icon" title="Herb-Robert (Geranium robertianium)">I</div>
+            </div>
+            <div class="image-wrapper">
+                <img src="images/shinyger.png" alt="Shiny Geranium">
+                <div class="info-icon" title="Shiny geranium (Geranium lucidum)">I</div>
+            </div>
+            <div class="image-wrapper">
+                <img src="images/blackberry.jpeg" alt="Blackberry">
+                <div class="info-icon" title="Himalayan blackberry (Rubus armeniacus)">I</div>
+            </div>
+            <div class="image-wrapper">
+                <img src="images/ivy.png" alt="Ivy">
+                <div class="info-icon" title="English ivy (Hedera helix)">I</div>
+            </div>
+            <div class="image-wrapper">
+                <img src="images/ash.jpeg" alt="Ash">
+                <div class="info-icon" title="*Oregon ash (Fraxinus latifolia)">I</div>
+            </div>
+            <div class="image-wrapper">
+                <img src="images/dougfir.jpeg" alt="Douglas Fir">
+                <div class="info-icon" title="*Douglas fire (Pseudotsuga menziesii)">I</div>
+            </div>
         </div>
+        <p id="plants-subtitle">Names with a '*' are native plants that can out-compete oak trees.</p>
+    </section>
+    
+
+    <div class="between-sections" id="data-doc">
+        <h1>Workflow Diagram</h1>
+        <p>This diagram details the main data sources and major analytical processes that went into the creation of this map. </p>
+    </div>
+
+    <section id="section5">
+        <img src="images/workflow.png" style="height:100%; width:100%; object-fit:scale-down;">
+    </section>
+
+    <div class="between-sections">
+        <h1>Data Documentation</h1>
+        <p>This diagram details the main data sources and major analytical processes that went into the creation of this map. </p>
+    </div>
+
+    <section id="section6">
+        <img src="images/datatable.png" style="height:100%; width:100%; object-fit:scale-down;">
+    </section>
+
+    <div class="between-sections">
+        <h1>Acknowledgements and Citations</h1>
+    </div>
+
+    <section id="section7">
+        <h3>Citations</h3>
+        <ul>
+            <li><a href="https://www.oregonconservationstrategy.org/strategy-habitat/oak-woodlands/" target=""_blank>[1] Oak Woodlands (Oregon Conservation Strategy)</a></li>
+            <li><a href="https://www.oregonconservationstrategy.org/strategy-species/slender-billed-white-breasted-nuthatch/" target=""_blank>[2] White-breasted nuthatch (Oregon Conservation Strategy)</a></li>
+            <li><a href="https://ohgarryoaksociety.org/what-is-a-garry-oak/" target=""_blank>[3] What is a Garry Oak? (Oak Harbor Garry Oak Society)</a></li>
+            <li><a href="https://www.jstor.org/stable/3808345/" target=""_blank>[4] Habitat Selection by Birds of Riparian Communities: Evaluating Effects of Habitat Alterations (Stauffer & Best 1980)</a></li>
+            <li><a href="https://www.srs.fs.usda.gov/pubs/misc/ag_654/volume_2/quercus/garryana.htm/" target=""_blank>[5] Oregon White Oak (USDA)</a></li>
+            <li><a href="https://owic.oregonstate.edu/oregon-white-oak-quercus-garryana/" target=""_blank>[6] Oregon White Oak (Quercus garryana) (Oregon State University)</a></li>
+        </ul>
+        <h3>Image credits</h3>
+        <ul>
+            <li><a href="https://www.nature.org/en-us/get-involved/how-to-help/places-we-protect/coburg-ridge/" target="_blank">Oak woodland - Nature Conservancy</a></li>
+            <li><a href="https://www.allaboutbirds.org/guide/White-breasted_Nuthatch/photo-gallery/308578751" target="_blank">White-breasted nuthatch - All About Birds</a></li>
+            <li><a href="https://bentonswcd.org/living-wildlife-surprising-squirrel-story/" target="_blank">Douglas' squirrel - Benton Soil and Water Conservation District</a></li>
+            <li><a href="https://audubonportland.org/blog/the-home-lives-of-oregons-woodpeckers/" target="_blank">Hairy woodpecker - Portland Audubon Society</a></li>
+            <li><a href="https://www.confluenceproject.org/library-post/profound-role-of-camas-in-the-northwest-landscape/" target="_blank">Salal - Confluence Project</a></li>
+            <li><a href="https://www.elementalromanticism.com/blog/post/457074/native-plant-spotlight-trillium-ovatum" target="_blank">Trillium - Elemental Romanticism</a></li>
+            <li><a href="https://ohgarryoaksociety.org/what-is-a-garry-oak/" target="_blank">Native Americans & Oak Trees - Oak Harbor Garry Oak Society</a></li>
+            <li><a href="https://www.ediblewildfood.com/herb-robert.aspx" target="_blank">Herb-Robert - Edible Wild Food</a></li>
+            <li><a href="https://kingcountyweeds.com/2017/04/14/shiny-geranium-april-2017-weed-of-the-month/" target="_blank">Shiny geranium - King County Weeds</a></li>
+            <li><a href="https://www.gardeningknowhow.com/ornamental/groundcover/english-ivy/english-ivy-plant-care.htm" target="_blank">English ivy - Gardening Know-how</a></li>
+            <li><a href="https://baynature.org/2020/07/07/how-the-mistakenly-named-himalayan-blackberry-became-a-california-summer-tradition/" target="_blank">Himalayan blackberry - Bay Nature</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Fraxinus_latifolia" target="_blank">Oregon ash - Wikipedia</a></li>
+            <li><a href="http://nativeplantspnw.com/douglas-fir-pseudotsuga-menziesii/" target="_blank">Douglas fir - Native Plants NW</a></li>
+          </ul>
+        <h3>Acknowledgements</h3>
+        <p>I would like to thank Jack Halsey and Allie Molen with the Oswego Lake Watershed Council for teaching me about Oregon white oaks and helping provide many useful resources. I would also like to thank Nicole Ruggiero with the Tualatin Soil and Water Conservation District for sharing her some of her white oak research findings with me, and pointing me in the right direction on some of the analysis work. I would also like to thank fellow PCC students Joseph Stout, Val Brenneis, Ruth Bonnette, and Mark Davidson for assistance in some of my endeavors. Finally, I would like to thank Christina Friedle for connecting me with the OLWC and setting this project up. </p>
     </section>
 
     <script src="section1.js"></script>

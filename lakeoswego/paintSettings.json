@@ -12,7 +12,7 @@
       "circle-stroke-color": "black"
     },
     "survey_results": {
-      "circle-radius": 2,
+      "circle-radius": 4,
       "circle-stroke-width": 0.3,
       "circle-color": "#fc0377",
       "circle-stroke-color": "#fcba03"
@@ -35,6 +35,12 @@
         80, 5,
         110, 8
       ]
+    },
+    "OR_oak_Clip": {
+      "circle-radius": 4,
+      "circle-stroke-width": 0.3,
+      "circle-color": "#fcf27e",
+      "circle-stroke-color": "#68b3aa"
     },
     "Studyarea_Erase": {
       "fill-color": "#747274",
@@ -69,19 +75,19 @@
       "fill-opacity": 0.6,
       "fill-outline-color": "#232323"
     },
-    "Connective_15ft_3trees.geojson": {
+    "Connective_15ft_3trees": {
       "fill-color": "#fff1a3",
-      "fill-opacity": 1,
+      "fill-opacity": 0.8,
       "fill-outline-color": "#232323"
     },
-    "Connective_25ft_8trees.geojson": {
+    "Connective_25ft_8trees": {
       "fill-color": "#e2ff95",
-      "fill-opacity": 1,
+      "fill-opacity": 0.8,
       "fill-outline-color": "#232323"
     },
-    "Connective_50ft_4trees.geojson": {
+    "Connective_50ft_4trees": {
       "fill-color": "#95ffdc",
-      "fill-opacity": 1,
+      "fill-opacity": 0.8,
       "fill-outline-color": "#232323"
     },
     "Squirrel_patches": {

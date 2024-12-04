@@ -6,8 +6,7 @@
         "section": "1",
         "type": "image",
         "sidebarPosition": "left",
-        "image1": "images/oak2.png",
-        "image2": ""
+        "image1": "images/oak1.jpeg"
     },
     {
         "id": "2",
@@ -16,8 +15,7 @@
         "section": "1",
         "type": "image",
         "sidebarPosition": "right",
-        "image1": "images/oak3.png",
-        "image2": ""
+        "image1": "images/oak2.jpeg"
     },
     {
         "id": "3",
@@ -26,8 +24,7 @@
         "section": "1",
         "type": "image",
         "sidebarPosition": "left",
-        "image1": "images/nuthatch.png",
-        "image2": ""
+        "image1": "images/nuthatch.jpeg"
     },
     {
         "id": "4",
@@ -36,8 +33,7 @@
         "section": "1",
         "type": "image",
         "sidebarPosition": "right",
-        "image1": "images/woodpecker.png",
-        "image2": ""
+        "image1": "images/woodpecker.jpeg"
     },
     {
         "id": "5",
@@ -46,8 +42,7 @@
         "section": "1",
         "type": "image",
         "sidebarPosition": "right",
-        "image1": "images/squirrel.png",
-        "image2": ""
+        "image1": "images/squirrel.jpeg"
     },
     {
         "id": "6",
@@ -56,8 +51,7 @@
         "section": "1",
         "type": "swipe",
         "sidebarPosition": "center",
-        "image1": "images/camas.png",
-        "image2": "images/trillium.png"
+        "image1": "images/plants.jpeg"
     },
     {
         "id": "7",
@@ -66,8 +60,7 @@
         "section": "1",
         "type": "image",
         "sidebarPosition": "left",
-        "image1": "images/woodlands.png",
-        "image2": ""
+        "image1": "images/oak3.jpeg"
     },
     {
         "id": "8",
@@ -76,8 +69,7 @@
         "section": "1",
         "type": "image",
         "sidebarPosition": "center",
-        "image1": "images/natives.png",
-        "image2": ""
+        "image1": "images/na.jpeg"
     },
     {
         "id": "9",
@@ -86,8 +78,7 @@
         "section": "1",
         "type": "image",
         "sidebarPosition": "left",
-        "image1": "images/oak4.png",
-        "image2": ""
+        "image1": "images/oak4.jpeg"
     }
 ]
    
