@@ -307,7 +307,11 @@ button.toggle-sidebar-button {
     }
 
     #sidebar1.collapsed {
-        width: 0%;
+        width: 0px;
+    }
+
+    #sidebar1 .slide {
+        max-width: 30%;
     }
 
     .map {

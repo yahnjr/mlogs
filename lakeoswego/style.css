@@ -3,6 +3,7 @@ body, html {
     padding: 0;
     height: fit-content;
     font-family: Verdana;
+    background-color: rgb(236, 234, 234);
 }
 
 header {
@@ -202,11 +203,42 @@ iframe {
     transition: opacity 0.3s;
 }
 
+.info-icon:hover::after,
+.info-icon.active::after {
+    opacity: 1;
+}
+
 .info-icon:hover {
     opacity: 1;
+}
+
+.info-icon::after {
+    content: attr(title);
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #444;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+    z-index: 10;
 }
 
 #plants-subtitle {
     width: 100%;
     text-align: center;
+}
+
+.info-icon.active {
+    opacity: 1;
+}
+
+.info-icon.active::after {
+    opacity: 1;
 }

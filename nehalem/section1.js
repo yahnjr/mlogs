@@ -85,16 +85,25 @@ function createSec1Slide(slide, sidebarId) {
         <h2>${slide.title}</h2>
         <p>${slide.description}</p>
     `;
-    if (slide.sidebarPosition === "center") {
-        sidebarSlide.style.left = "50%";
-        sidebarSlide.style.transform = "translateX(-50%)";
-    } else if (slide.sidebarPosition === "right") {
-        sidebarSlide.style.left = "";
-        sidebarSlide.style.right = "-65%";
+
+    var isMobile = window.innerWidth <= 768;
+
+    if (isMobile) {
+        sidebarSlide.style.left = "5%";
+        sidebarSlide.style.right = ";"
     } else {
-        sidebarSlide.style.right = "";
-        sidebarSlide.style.left = "5%";  
+        if (slide.sidebarPosition === "center") {
+            sidebarSlide.style.left = "50%";
+            sidebarSlide.style.transform = "translateX(-50%)";
+        } else if (slide.sidebarPosition === "right") {
+            sidebarSlide.style.left = "";
+            sidebarSlide.style.right = "-65%";
+        } else {
+            sidebarSlide.style.right = "";
+            sidebarSlide.style.left = "5%";  
+        }
     }
+    
     document.getElementById(sidebarId).appendChild(sidebarSlide);
 }
 

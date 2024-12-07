@@ -212,6 +212,26 @@ function populateSection2(data) {
   });
 }
 
+document.querySelectorAll('.info-button').forEach(icon => {
+  icon.addEventListener('click', function (e) {
+    this.classList.toggle('active');
+
+    document.querySelectorAll('.info-icon').forEach(otherIcon => {
+      if (otherIcon !== this) {
+        otherIcon.classList.remove('active');
+      }
+    });
+
+    e.stopPropagation();
+  });
+});
+
+document.addEventListener('click', () => {
+  document.querySelectorAll('info-icon').forEach(icon => {
+    icon.classList.remove('active');
+  })
+})
+
 document.addEventListener('DOMContentLoaded', function() {
   fetch('section2.json')
       .then(response => response.json())

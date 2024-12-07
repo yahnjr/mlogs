@@ -2,7 +2,7 @@
     {
         "id": "10",
         "title": "",
-        "description": "The spark that started this map is this data about oak trees in the Portland area, compiled by  Portland Metro  for a project known as 'Mapping one oak at a time.' These circle do not necessarily represent only one tree each, as most of the identification was done from aerial imagery as opposed to on the ground surveying. However, it provides an important starting point for mapping and quantifying the oak trees within our study area.",
+        "description": "The spark that started this map is this data about oak trees in the Portland area, compiled by <a href='https://www.oregonmetro.gov/news/mapping-one-oak-time' target='_blank'> Portland Metro </a> for a project known as 'Mapping one oak at a time.' These circle do not necessarily represent only one tree each, as most of the identification was done from aerial imagery as opposed to on the ground surveying. However, it provides an important starting point for mapping and quantifying the oak trees within our study area.",
         "sidebarPosition": "left",
         "layer1": "data/circle/OakPoints.geojson",
         "layer2": "",
@@ -123,7 +123,7 @@
     {
         "id": "21",
         "title": "",
-        "description": "If we start small- say, 30 feet between the trees and patches of at least three trees, we can see that many such patches exist. These tiny blobs, however, might not be much use to animals. It's time to think bigger. ",
+        "description": "If we start small- say, <b>30 feet</b> between the trees and patches of at least <b>3 trees</b>, we can see that many such patches exist. These tiny blobs, however, might not be much use to animals. It's time to think bigger. ",
         "sidebarPosition": "left",
         "layer1": "data/fill/Connective_15ft_3trees.geojson",
         "layer2": "",
@@ -134,7 +134,7 @@
     {
         "id": "22",
         "title": "",
-        "description": "We are now looking at patches with 50 feet between trees, and at least 8 trees existing together. Again, there are many patches that meet these criteria throughout the neighborhoods. A small patch like this might be plenty for a small songbird species, but a larger bird may require more space, so we can continue to tweak the numbers to explore patches of different types.",
+        "description": "We are now looking at patches with <b>50 feet</b> between trees, and at least <b>8 trees</b> existing together. Again, there are many patches that meet these criteria throughout the neighborhoods. A small patch like this might be plenty for a small songbird species, but a larger bird may require more space, so we can continue to tweak the numbers to explore patches of different types.",
         "sidebarPosition": "left",
         "layer1": "data/fill/Connective_25ft_8trees.geojson",
         "layer2": "",
@@ -145,7 +145,7 @@
     {
         "id": "23",
         "title": "",
-        "description": "This patch allows for 100 feet between the trees, and requires that 10 trees exist together. It becomes clear that slight changes in our parameters result in huge differences in the size and density of patches throughout the neighborhood, but either way, there are plenty of potential habitable patches hidden among the houses. ",
+        "description": "This patch allows for <b>100 feet</b> between the trees, and requires that <b>10 trees</b> exist together. It becomes clear that slight changes in our parameters result in huge differences in the size and density of patches throughout the neighborhood, but either way, there are plenty of potential habitable patches hidden among the houses. ",
         "sidebarPosition": "left",
         "layer1": "data/fill/Connective_50ft_4trees.geojson",
         "layer2": "",
@@ -178,7 +178,7 @@
     {
         "id": "26",
         "title": "",
-        "description": "Research into the subject reveals that around 100 acres of continuous woodland could support five nesting pairs of white-breasted nuthatch  [4] . Within out study area, multiple patches of woodland meeting this criteria exist. The potential of the oak trees in our neighborhoods to provide habitat to local species is an important point to be considered in conservation strategies. ",
+        "description": "Research into the subject reveals that around 100 acres of continuous woodland could support five nesting pairs of white-breasted nuthatch <a href='https://www.jstor.org/stable/3808345/' target='_blank'> [4] </a>. Within out study area, multiple patches of woodland meeting this criteria exist. The potential of the oak trees in our neighborhoods to provide habitat to local species is an important point to be considered in conservation strategies. ",
         "sidebarPosition": "left",
         "layer1": "data/fill/WBNH_patches.geojson",
         "layer2": "",
@@ -200,7 +200,7 @@
     {
         "id": "28",
         "title": "",
-        "description": "For this, we will create a basic suitability survey using soil data and elevation data. Trees are complex organisms and many different things factor into their habitat preferences. Oaks are especially complex- and far from fickle, they grow in both dry soils and riparian areas. Soil is a multifaceted beast of its own- the soil data shown here contained 578 zones with over 100 attributes- but in a much simplified sense, oak trees generally preferred poorly-drained clay soils and well-drained loam soils.",
+        "description": "For this, we will create a basic suitability survey using soil data and elevation data. Trees are complex organisms and many different things factor into their habitat preferences. Oaks are especially complex- and far from fickle, they grow in both dry soils and riparian areas. Soil is a multifaceted beast of its own- the soil data shown here contained 578 zones with over 100 attributes- but in a much simplified sense, oak trees generally preferred <b>poorly-drained clay soils</b> and <b>well-drained loam soils</b> <a href='https://www.srs.fs.usda.gov/pubs/misc/ag_654/volume_2/quercus/garryana.htm/' target='_blank'> [5] </a>.",
         "sidebarPosition": "left",
         "layer1": "data/fill/NATGO_Poly.geojson",
         "layer2": "",
@@ -211,7 +211,7 @@
     {
         "id": "29",
         "title": "",
-        "description": "With our ideal soils selected, we can use elevation data to further refine our suitable oak growing area. Oregon white oak prefers to grow at lower elevations below 3,800 feet  [6] . Since we are in the valley, we will not cross this threshold. However, oak trees also prefer to grow on flat land with a slope of less than 30%  [5].",
+        "description": "With our ideal soils selected, we can use elevation data to further refine our suitable oak growing area. Oregon white oak prefers to grow at lower elevations below 3,800 feet <a href='https://owic.oregonstate.edu/oregon-white-oak-quercus-garryana/' target='_blank'> [6] </a>. Since we are in the valley, we will not cross this threshold. However, oak trees also prefer to grow on flat land with a <b>slope of less than 30%</b> <a href='https://www.jstor.org/stable/3808345/' target='_blank'> [5] </a>.",
         "sidebarPosition": "left",
         "layer1": "data/fill/Suitable_areas.geojson",
         "layer2": "",
@@ -255,7 +255,7 @@
     {
         "id": "33",
         "title": "",
-        "description": "The red points come from a tree survey conducted by the Oswego Lake Watershed Council, looking for oak trees in the northern part of the city. These points also fall outside of our blindspot areas- indicating that these oak trees are accounted for. However, this does not mean there are more trees to be discovered out there! If you happen upon an oak tree, you can add it to this map using  the survey  built for this project!",
+        "description": "The red points come from a tree survey conducted by the Oswego Lake Watershed Council, looking for oak trees in the northern part of the city. These points also fall outside of our blindspot areas- indicating that these oak trees are accounted for. However, this does not mean there are more trees to be discovered out there! If you happen upon an oak tree, you can add it to this map using <a href='https://survey123.arcgis.com/share/9415692cfc51496da1f84f8bed0033e2?open=menu' target='_blank> the survey </a> built for this project!",
         "sidebarPosition": "left",
         "layer1": "data/fill/PossibleBlindspots.geojson",
         "layer2": "data/circle/survey_results.geojson",

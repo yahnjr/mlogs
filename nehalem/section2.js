@@ -37,6 +37,7 @@ function createSlide(slide, sidebarId) {
     // Set all necessary attributes for the maps
     sidebarSlide.setAttribute('id', slide.id);
     sidebarSlide.setAttribute('name', slide.title);
+    sidebarSlide.setAttribute('description', slide.description);
     sidebarSlide.setAttribute('data-layer', slide.dataLayer);
     sidebarSlide.setAttribute('basin-layer', slide.basinLayer);
     sidebarSlide.setAttribute('swCoordinate', slide.swCoordinate);
@@ -63,6 +64,7 @@ function createSlide(slide, sidebarId) {
     sidebarSlide.innerHTML = `
         <h2>${slide.title}</h2>
         <p class="source">Source: ${slide.source}</p>
+        <p class="description"> ${slide.description} </p>
         <div class="legend-container">
             <div id="data-legend${slide.id}" class="data-legend"></div>
             <div id="basin-legend${slide.id}" class="basin-legend"></div>
