@@ -161,6 +161,8 @@ function createLegend(steps, colors, containerId, attribute, units) {
         legendItem.appendChild(label);
         legendContainer.appendChild(legendItem);
     });
+
+    console.log(`${containerId} legend created: ${attribute}, ${steps[0]}, ${steps[1]}...`)
 }
 
 function updateMapLayers(map, currentLayers, newLayerConfig) {
