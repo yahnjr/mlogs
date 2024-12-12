@@ -367,11 +367,12 @@ function changeLayers(sectionId) {
     const slides = sidebar.getElementsByClassName('slide');
     const section = sidebar.closest('section');
     const switchButton = section.querySelector('.switch-button');
+    const switchButtonText = section.querySelector('.switch-button-text');
     const basinMap = section.querySelector('.basin-map');
     const dataMap = section.querySelector('.data-map');
     const dataMapInstance = mapInstances[dataMap.id];
     const basinOnly = ['15', '16', '17'];
-    const dataOnly = [];
+    const dataOnTop = ['18', '20'];
     
     
     sidebar.addEventListener('scroll', () => {
@@ -394,9 +395,10 @@ function changeLayers(sectionId) {
                     if (basinMap) {
                         basinMap.classList.add('active');
                     }
-                } else if (dataOnly.includes(slide.id)) {
+                } else if (dataOnTop.includes(slide.id)) {
                     if (switchButton) {
-                        switchButton.style.display = 'none';
+                        switchButton.style.backgroundImage = "url('images/basin.svg')";
+                        switchButtonText.innerText = "View Basins";
                     }
                     if (basinMap) {
                         basinMap.classList.remove('active');

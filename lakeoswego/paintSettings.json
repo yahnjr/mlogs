@@ -53,15 +53,15 @@
     },
     "Taxlots_Res": {
       "fill-outline-color": "white",
-      "fill-color": "#b5bbb4"
+      "fill-color": "#e1e3e1"
     },
     "Taxlots_Res_nosym": {
-      "fill-outline-color": "white",
+      "fill-outline-color": "rgba(255,255,255,0)",
       "fill-color": [
         "interpolate",
         ["linear"],
         ["get", "Join_Count"],
-        0, "#b5bbb4",
+        0, "#e1e3e1",
         1, "#2dcd02"
       ]
     },
