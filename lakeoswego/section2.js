@@ -180,11 +180,11 @@ function changeLayersWithObserver(sidebarID, mapID) {
           }
 
           if (newStyle) {            
+            map2.setStyle(newStyle);
+
             map2.once('styledata', () => {
               mapSlideUpdate(slide);
             });
-
-            map2.setStyle(newStyle);
           } else {
             mapSlideUpdate(slide);
           }

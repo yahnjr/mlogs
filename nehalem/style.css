@@ -39,11 +39,13 @@ nav ul {
     margin: 0;
     padding: 0;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
 nav li {
     margin: 0 15px;
+    text-align: center;
 }
 
 nav a {
@@ -304,6 +306,8 @@ button.toggle-sidebar-button {
 
     .sidebar.collapsed {
         width: 0px;
+        overflow: hidden;
+        padding: 0;
     }
 
     #sidebar1.collapsed {
@@ -349,7 +353,11 @@ button.switch-button:hover {
 .switch-button-text {
     position: absolute;
     align-content: center;
-    bottom: 5px;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 100%;
 }
 
 .image.fade-out {

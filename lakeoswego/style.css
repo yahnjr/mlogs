@@ -28,6 +28,8 @@ nav {
     padding: 10px;
     position: sticky;
     top: 0;
+    flex-wrap: wrap;
+    justify-content: center;
     z-index: 100;
 }
 
@@ -36,11 +38,13 @@ nav ul {
     margin: 0;
     padding: 0;
     display: flex;
+    text-align: center;
     justify-content: center;
 }
 
 nav li {
     display: inline-block;
+    text-align: center;
     margin-right:  15px;
 }
 
@@ -52,6 +56,12 @@ nav a {
 
 nav a:hover {
     background-color: #444;
+}
+
+@media (max-width: 768px) {
+    nav li {
+        font-size: 0.6rem;
+    }
 }
 
 .between-sections {
