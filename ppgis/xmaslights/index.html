@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xmas Lights Report</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.31/"></script>
+    <style>
+        body {
+            padding: 3px;
+            margin: 0;
+        }
+        #viewDiv {
+            height: 100vh;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+        #add-location-button {
+            font-size: 1.5rem;
+            padding: 10px;
+            cursor: pointer;
+        }
+        #title-box {
+            position: absolute;
+            top: 10px;
+            left: 30px;
+            z-index: 10;
+            color: white;
+            max-width: 70%;
+        }
+        .modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+        .star {
+            font-size: 2rem;
+            color: gray;
+            cursor: pointer;
+        }
+        .star.selected {
+            color: gold;
+        }
+        .star:hover ~ .star {
+            color: gray;
+        }
+        #location-input {
+            width: 100%;
+        }
+        #comment-input {
+            width: 100%;
+            height: 100px;
+        }
+        #snowCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .back-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #1e3a47;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 1000;
+            transition: background-color 0.3s;
+            }
+            .back-button:hover {
+            background-color: #758a94;
+            }
+            .back-arrow {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-left: 3px solid white;
+            border-bottom: 3px solid white;
+            transform: rotate(45deg);
+            }
+    </style>
+</head>
+<body>
+    <div id="title-box">
+        <h1>Report Your Christmas Light Sightings!</h1>
+        <p id="infop">Click on the map to add a sighting. Rate the lights you saw out of 5 stars.</p>
+        <div id="add-location-box">
+            <button id="add-location-button">&#10133; Add a Location</button>
+        </div>
+    </div>
+    <div id="viewDiv"></div>
+    <canvas id="snowCanvas"></canvas>
+    <div id="ratingModal" class="modal">
+        <p>Where are these lights located?</p>
+        <input type="text" id="location-input">
+        <p>Any comments to add?</p>
+        <input type="text" id="comment-input">
+        <p>How cool were the lights?</p>
+        <span class="star" data-value="1">&#9733;</span>
+        <span class="star" data-value="2">&#9733;</span>
+        <span class="star" data-value="3">&#9733;</span>
+        <span class="star" data-value="4">&#9733;</span>
+        <span class="star" data-value="5">&#9733;</span>
+    </div>
+    <a href="../index.html" class="back-button">
+        <span class="back-arrow"></span>
+        Back
+    </a>
+
+    <script>
+        require([
+            "esri/Map",
+            "esri/views/MapView",
+            "esri/layers/FeatureLayer",
+            "esri/Graphic",
+            "esri/symbols/SimpleMarkerSymbol",
+            "esri/symbols/PictureMarkerSymbol",
+            "esri/renderers/UniqueValueRenderer",
+            "esri/geometry/Point",
+            "esri/geometry/support/webMercatorUtils"
+        ], function(Map, MapView, FeatureLayer, Graphic, SimpleMarkerSymbol, PictureMarkerSymbol, UniqueValueRenderer, Point, webMercatorUtils) {
+            var map = new Map({
+                basemap: "dark-gray"
+            });
+            30.148163943405034, -85.14644344053447
+            30.07491195645479, -85.25118960772286
+            var view = new MapView({
+                container: "viewDiv",
+                map: map,
+                extent: {
+                    xmin: -85.25,
+                    ymin: 30.07,
+                    xmax: -85.15,
+                    ymax: 30.15,
+                    spatialReference: { wkid: 4326 }
+                }
+            });
+
+            var renderer = new UniqueValueRenderer({
+                field: "colorCode", 
+                defaultSymbol: new SimpleMarkerSymbol(),
+                uniqueValueInfos: [ 
+                { value: "1", symbol: { type: "simple-marker", size: 8, color: [255, 255, 31], outline: null }},
+                { value: "2", symbol: { type: "simple-marker", size: 8, color: [141, 66, 185], outline: null }},
+                { value: "3", symbol: { type: "simple-marker", size: 8, color: [69, 151, 205], outline: null }},
+                { value: "4", symbol: { type: "simple-marker", size: 8, color: [69, 199, 86], outline: null }},
+                { value: "5", symbol: { type: "simple-marker", size: 8, color: [193, 30, 20], outline: null }},
+                { value: "6", symbol: { type: "simple-marker", size: 8, color: [255, 168, 3], outline: null }}
+                ]
+            });
+
+            var popupTemplate = {
+                title: "Christmas Lights Details",
+                content: [
+                    {
+                    type: "text",
+                    text: `
+                    Location: {Location}<br>
+                    Comments: {Comments}<br>
+                    Rating: {lightType} &#9733;<br>
+                    <a href="https://maps.google.com/?q={expression/latlng}" target="_blank">Google Maps Link</a>
+                        `
+                    }
+                ],
+                expressionInfos: [
+                    {
+                        name: "latlng",
+                        title: "Lat/Lng",
+                        expression: `
+                        function MetersToLatLon(mx, my) {
+                            var originShift = 2.0 * PI * 6378137.0 / 2.0;
+
+                            var lon = (mx / originShift) * 180.0;
+                            var lat = (my / originShift) * 180.0;
+
+                            lat = 180.0 / PI * (2.0 * Atan( Exp( lat * PI / 180.0)) - PI / 2.0);
+                            return [lat, lon];
+                        }
+
+                        var poly = Geometry($feature);
+
+                        var result = "";
+                        if (!IsEmpty(poly)) {
+                            var pnt_centr = Centroid(poly);
+                            var latlon = MetersToLatLon(pnt_centr.x, pnt_centr.y);
+                            result = Round(latlon[0], 6) + "," + Round(latlon[1], 6);
+                        } else {
+                            result = "";
+                        }
+
+                        return result;
+                        `,
+                        returnType: "string"
+                    }
+                ],
+                outFields: ["Location", "Comments", "lightType"]
+            };
+
+            var featureLayer = new FeatureLayer({
+                url: "https://services8.arcgis.com/tblHe99qQFMcNzpC/arcgis/rest/services/PPGIS_Layers/FeatureServer/0",
+                popupTemplate: popupTemplate,
+                outFields: ['*'],
+                editable: true,
+                renderer: renderer 
+            });
+
+            featureLayer.effect = "bloom(2, 0.1px, 15%)";
+
+            map.add(featureLayer);
+
+            var currentPoint = null;
+            var addMode = false;
+
+            document.getElementById("add-location-box").addEventListener("click", function() {
+                addMode = true;
+                document.getElementById("viewDiv").style.cursor = "crosshair";
+            });
+
+            view.on("click", function(event) {
+                if(!addMode) return;
+
+                var point = view.toMap({ x: event.x, y: event.y });
+
+                var tempGraphic = new Graphic({
+                    geometry: point,
+                    symbol: new SimpleMarkerSymbol({
+                        color: "white",
+                        size: 8,
+                        outline: { color: [0, 0, 0], width: 1 }
+                    })
+                });
+                view.graphics.add(tempGraphic);
+                currentPoint = point;
+
+                document.getElementById("ratingModal").style.display = "block";
+                addMode = false;
+                document.getElementById("viewDiv").style.cursor = "auto";
+            });
+
+            window.addEventListener("click", function(event) {
+                var modal = document.getElementById("ratingModal");
+                if (event.target.closest("#ratingModal")) {
+                    // Click was inside the modal, do nothing
+                    return;
+                }
+                if (modal.style.display === "block") {
+                    modal.style.display = "none";
+                    view.graphics.removeAll();
+                    document.getElementById("location-input").value = null;
+                    document.getElementById("comment-input").value = null;
+                }
+            });
+
+            document.querySelectorAll(".star").forEach(function(star) {
+                star.addEventListener("click", function() {
+                    var rating = this.getAttribute("data-value");
+                    var location = document.getElementById("location-input").value;
+                    var comments = document.getElementById("comment-input").value;
+
+                    var attributes = {
+                        lightType: rating,
+                        Location: location,
+                        Comments: comments,
+                        colorCode: Math.floor(Math.random() * 6) + 1
+                    };
+                    var newGraphic = new Graphic({
+                        geometry: currentPoint,
+                        attributes: attributes
+                    });
+
+                    featureLayer.applyEdits({
+                        addFeatures: [newGraphic]
+                    }).then(function() {
+                        document.getElementById("ratingModal").style.display = "none";
+                        view.graphics.removeAll();
+                        document.getElementById("location-input").value = null;
+                        document.getElementById("comment-input").value = null;
+                    });
+                });
+            });
+
+            document.querySelectorAll(".star").forEach(function(star) {
+                star.addEventListener("mouseover", function() {
+                    var rating = this.getAttribute("data-value");
+                    document.querySelectorAll(".star").forEach(function(s) {
+                        s.classList.toggle("selected", s.getAttribute("data-value") <= rating);
+                    });
+                });
+            });
+
+            document.getElementById("ratingModal").addEventListener("mouseleave", function() {
+                document.querySelectorAll(".star").forEach(function(star) {
+                    star.classList.remove("selected");
+                });
+            });
+
+            const canvas = document.getElementById("snowCanvas");
+            const ctx = canvas.getContext("2d");
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            resizeCanvas();
+            window.addEventListener("resize", resizeCanvas);
+
+            const snowflakes = [];
+
+            function createSnowflakes(count) {
+                for (let i = 0; i < count; i++) {
+                    snowflakes.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        radius: Math.random() *3 + 1,
+                        speedY: Math.random() * 1 + 0.5
+                    });
+                }
+            }
+
+            function drawSnowflakes() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "white";
+                ctx.beginPath();
+                snowflakes.forEach(function(snowflake) {
+                    ctx.moveTo(snowflake.x, snowflake.y);
+                    ctx.arc(snowflake.x, snowflake.y, snowflake.radius, 0, Math.PI * 2);
+                });
+                ctx.fill();
+            }
+
+            function updateSnowflakes() {
+                snowflakes.forEach(function(snowflake) {
+                    snowflake.y += snowflake.speedY;
+                    if (snowflake.y > canvas.height) {
+                        snowflake.y = -snowflake.radius;
+                        snowflake.x = Math.random() * canvas.width;
+                    }
+                });
+            }
+
+            function animateSnow() {
+                drawSnowflakes();
+                updateSnowflakes();
+                requestAnimationFrame(animateSnow);
+            }
+
+            createSnowflakes(250);
+            animateSnow();
+
+            view.ui.move("zoom", "top-right");
+        });
+    </script>
+</body>
+</html>

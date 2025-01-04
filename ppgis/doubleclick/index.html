@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Wewahitchka Public Comments</title>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.29/"></script>
+  <style>
+    #viewDiv {
+      height: 80vh;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+
+    .topic-buttons {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topic-button {
+      margin-bottom: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+      background-color: #eee;
+      border: 1px solid #ddd;
+    }
+
+    .topic-button.selected-topic {
+      background-color: #ddd;
+    }
+
+    .esri-geometry-point {
+      outline: none;
+      width: 5px;
+      height: 5px;
+    }
+
+    .welcome-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      background-color: white;
+      padding: 10px;
+      border: 1px solid #ddd;
+      z-index: 1;
+      max-width: 300px;
+      height: 200px; 
+      font-size: 11px;
+    }
+    
+    @media only screen and (min-width: 768px) {
+      .welcome-box {
+        font-size: 16px; 
+      }
+    }
+
+    .close-button {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .info-button {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+
+    .back-button {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: #1e3a47;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 1000;
+      transition: background-color 0.3s;
+    }
+    .back-button:hover {
+      background-color: #758a94;
+    }
+    .back-arrow {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-left: 3px solid white;
+      border-bottom: 3px solid white;
+      transform: rotate(45deg);
+    }
+
+  </style>
+</head>
+<body>
+  <div id="viewDiv">
+    <div class="welcome-box">
+      <p>Welcome! Please select a topic from the top right and double-click anywhere on the map to add a comment of your own. Click any other comment to view the contents. Multiple comments are welcome!</p>
+      <span class="close-button" onclick="document.querySelector('.welcome-box').style.display = 'none'">x</span>
+    </div>
+  </div>
+  <div class="topic-buttons">
+    <div class="topic-button" id="housing">🟡 Housing</div>
+    <div class="topic-button" id="infrastructure">🟣 Infrastructure</div>
+    <div class="topic-button" id="transportation">🔵 Transportation</div>
+    <div class="topic-button" id="parks">🟢 Parks & Nature</div>
+    <div class="topic-button" id="employment">🔴 Employment</div>
+  </div>
+  <a href="../index.html" class="back-button">
+    <span class="back-arrow"></span>
+    Back
+  </a>
+  <script>
+    require([
+      "esri/Map",
+      "esri/views/MapView",
+      "esri/layers/FeatureLayer",
+      "esri/Graphic",
+      "esri/symbols/SimpleMarkerSymbol",
+      "esri/renderers/UniqueValueRenderer",
+      "esri/symbols/SimpleFillSymbol",
+      "esri/PopupTemplate",
+      "esri/widgets/BasemapToggle",
+      "esri/Basemap"
+    ], function(Map, MapView, FeatureLayer, Graphic, SimpleMarkerSymbol, UniqueValueRenderer, SimpleFillSymbol, PopupTemplate, BasemapToggle, Basemap) {
+      var map = new Map({
+        basemap: "topo-vector"
+      });
+
+      var view = new MapView({
+        container: "viewDiv",
+        map: map,
+        extent: {
+          xmin: -85.25,
+          ymin: 30.07,
+          xmax: -85.15,
+          ymax: 30.15,
+          spatialReference: { wkid: 4326 }
+        }
+      });
+
+      var featureLayerUrl = "https://services8.arcgis.com/tblHe99qQFMcNzpC/arcgis/rest/services/PPGIS_Layers/FeatureServer/1";
+
+      var featureLayer = new FeatureLayer({
+        url: featureLayerUrl,
+        outFields: ["*"],
+        editable: true, // Allow editing
+      });
+
+      map.add(featureLayer);
+
+      // Define the UniqueValueRenderer
+      var renderer = new UniqueValueRenderer({
+        field: "topic", // Attribute to base the renderer on
+        defaultSymbol: new SimpleMarkerSymbol(),
+        uniqueValueInfos: [ // Define unique values and symbols- note these match the colors used in button text
+          {
+            value: "Housing",
+            symbol: {
+              type: "simple-marker",
+              size: 10,
+              color: [255, 255, 31], //yellow
+              outline: null
+            }
+          },
+          {
+            value: "Infrastructure",
+            symbol: {
+              type: "simple-marker",
+              size: 10,
+              color: [141, 66, 185], // purple
+              outline: null
+            }
+          },
+          {
+            value: "Transportation",
+            symbol: {
+              type: "simple-marker",
+              size: 10,
+              color: [69, 151, 205], //blue
+              outline: null
+            }
+          },
+          {
+            value: "Parks",
+            symbol: {
+              type: "simple-marker",
+              size: 10,
+              color: [69, 199, 86], // green
+              outline: null
+            }
+          },
+          {
+            value: "Employment",
+            symbol: {
+              type: "simple-marker",
+              size: 10,
+              color: [193, 66, 104], //red
+              outline: null
+            }
+          }
+        ]
+      });
+
+      featureLayer.renderer = renderer;
+
+      // For City limits, etc...
+      var polygonLayerUrl = "https://services8.arcgis.com/tblHe99qQFMcNzpC/arcgis/rest/services/PPGIS_Layers/FeatureServer/4";
+      var polygonLayer = new FeatureLayer({
+        url: polygonLayerUrl,
+        renderer: {
+          type: "simple",
+          symbol: {
+            type: "simple-fill",
+            color: [0, 0, 255, 0],
+            outline: {
+              color: [255, 0, 0, 1], 
+              width: 1 
+            }
+          }
+        }
+      });
+
+      map.add(polygonLayer);
+
+      // Default for adding points- double click. 
+      view.on("double-click", function(event) {
+        event.stopPropagation();
+        var point = {
+          type: "point",
+          longitude: event.mapPoint.longitude,
+          latitude: event.mapPoint.latitude
+        
+        };
+
+        var selectedTopic = document.querySelector(".selected-topic");
+        if (!selectedTopic) {
+          alert("Please select a topic before adding a point.");
+          return;
+        }
+
+        var attributes = {
+          pubcomment: prompt("Enter a short comment for this point:"),
+          topic: selectedTopic.id.charAt(0).toUpperCase() + selectedTopic.id.slice(1)
+        };
+
+        var newGraphic = new Graphic({
+          geometry: point,
+          attributes: attributes
+        });
+
+        featureLayer.applyEdits({
+          addFeatures: [newGraphic]
+        });
+      });
+
+      var topicButtons = document.querySelectorAll(".topic-button");
+      topicButtons.forEach(function(button) {
+        button.addEventListener("click", function() {
+          topicButtons.forEach(function(btn) {
+            btn.classList.remove("selected-topic");
+          });
+          button.classList.add("selected-topic");
+        });
+      });
+
+      var popupTemplate = {
+        title: "{topic}",
+        content: [
+          {
+            type: "text",
+            text: "<b>Comment:</b> {pubcomment}"
+          }
+        ]
+      };
+
+      featureLayer.popupTemplate = popupTemplate;
+    
+      view.popup.collapseEnabled = false;
+      
+      var toggle = new BasemapToggle({
+        view: view,
+        nextBasemap: "hybrid" 
+      });
+
+      view.ui.add(toggle, "bottom-right");
+});
+    
+  </script>
+</body>
+</html>

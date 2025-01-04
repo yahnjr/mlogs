@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Comment GIS Applications</title>
+    <style>
+        body, html {
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: auto;
+        }
+        #application-container {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            height: 90vh;
+            min-width: min-content;
+        }
+        .application-box {
+            width: 500px;
+            height: 100%;
+            background-color: #1e3a47;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+        .application-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+            background-color: #758a94;
+        }
+        .application-box img {
+            width: 100%;
+            height: 75%;
+            object-fit: cover;
+        }
+        .application-box h3,
+        .application-box p {
+            margin: 10px 15px;
+        }
+        .application-box h3 {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        .application-box p {
+            font-size: 0.9em;
+            line-height: 1.4;
+            margin-top: 0;
+        }
+        a {
+            text-decoration: none;
+        }
+        @media (max-width: 900px) {
+            body, html {
+                overflow-y: hidden;
+            }
+            #application-container {
+                flex-direction: column;
+                height: 90vh;
+                min-width: auto;
+                width: 100%;
+                overflow-y: auto;
+                justify-content: flex-start;
+            }
+            .application-box {
+                width: 100%;
+                height: calc(90vh / 3 - 14px);
+                min-height: 200px;
+            }
+            a {
+                height: calc(90vh / 3 - 14px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="application-container">
+        <a href="expansion/index.html"> <div class="application-box" id="expansion">
+            <img src="expansion/expansion.png" class="application-image">
+            <h3>City Limits Expansion Feedback</h3>
+            <p>A simple application to allow residents to offer feedback on an upcoming city limits expansion based on areas identified for potential growth.</p>
+        </div> </a>
+        <a href="doubleclick/index.html"> <div class="application-box" id="doubleclick">
+            <img src="doubleclick/doubleclick.png" class="application-image">
+            <h3>City Limits Expansion Feedback</h3>
+            <p>A simple application to allow residents to offer feedback on an upcoming city limits expansion based on areas identified for potential growth.</p>
+        </div> </a>
+        <a href="xmaslights/index.html"> <div class="application-box" id="xmaslights">
+            <img src="xmaslights/xmaslights.png" class="application-image">
+            <h3>City Limits Expansion Feedback</h3>
+            <p>A simple application to allow residents to offer feedback on an upcoming city limits expansion based on areas identified for potential growth.</p>
+        </div> </a>
+    </div>
+</body>
+</html>
