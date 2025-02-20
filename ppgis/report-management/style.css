@@ -1,0 +1,228 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+#viewDiv {
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    cursor: auto;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: 30%;
+    overflow: auto;
+    background-color: rgba(255,255,255,0.6);
+}
+
+#statusFilter {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#statusFilter button {
+    display: block;
+    margin-bottom: 5px;
+    width: 150px;
+}
+
+#typeFilter {
+    position: absolute;
+    top: 10px;
+    right: 200px;
+    z-index: 1000;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#typeFilter button {
+    display: block;
+    margin-bottom: 5px;
+    width: 150px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: 40%;
+    padding: 30px;
+    overflow: auto;
+    background-color: rgba(255,255,255,0.8);
+}
+
+textarea {
+    width: 100%;
+}
+
+.dropdown {
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.modalBtn {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.modalBtn:hover {
+    background-color: rgb(150, 150, 150);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#downloadReportBtn, .reportDate {
+    margin: 10px;
+}
+
+#addPointButton {
+    border: 1px solid #ccc;
+    background-color: white;
+    font-size: 2.5em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    position: absolute;
+    top: 20px;
+    left: 60px;
+    z-index: 1000;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+}
+
+#downloadReport {
+    position: absolute;
+    bottom: 40px;
+    left: 20px;
+    z-index: 1000;
+    background-color: rgba(220, 220, 220, 1);
+    box-shadow: 0 6px 4px rgba(0, 0, 0, 0.3);
+}
+
+#addPointButton:hover {
+    background-color: rgba(220, 220, 220, 1);
+    box-shadow: 0 6px 4px rgba(0, 0, 0, 0.3);
+}
+
+#notification-box {
+    display: flex;
+}
+.notification-input {
+    display: none;
+}
+
+#locationConfirmButton {
+    margin-top: 10px;
+    position: absolute;
+    top: 20px;
+    left: 100px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 60px;
+    height: 60px;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+
+#locationConfirmButton:hover {
+    background-color: #45a049;
+}
+
+#reportsTableContainer {
+    position: absolute; 
+    bottom: 10px; 
+    right: 20px; 
+    z-index: 1000; 
+    background: white; 
+    padding: 10px; 
+    border-radius: 5px; 
+    max-height: 300px; 
+    width: 600px; 
+    overflow-y: auto; 
+    display: none;
+}
+
+#reports-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#toggleTableBtn {
+    position: absolute;
+    top: 250px;
+    right: 20px;
+    z-index: 1000;
+    padding: 8px 16px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.table-th {
+    padding: 8px;
+    border: 1px solid #ddd;
+    background: #f4f4f4;
+}
+
+p, h1, #close-info-btn {
+    background-color: rgba(255,255,255,0.6);
+    border-radius: 5px;
+}
+
+#close-info-btn {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+#close-info-btn:hover {
+    background-color: rgba(200,200,200,0.6);
+}
+
+#info-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2000;
+}
+
+@media only screen and (max-width: 768px) {
+    #info-box {
+        font-size: 0.7em; 
+    }
+}

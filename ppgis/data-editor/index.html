@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Footprint Data Editor</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.31/"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+    
+        #viewDiv {
+            height: 100vh;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            cursor: help;
+        }
+
+        #controls {
+            position: absolute;
+            display: flex;
+            bottom: 5%;
+            right: 5%;
+            align-items: center;
+            padding: 10px;
+            background-color: rgba(255,255,255,0.6);
+            border-radius: 5px;
+        }
+
+        button, input {
+            height: 50px;
+            background-color: white;
+            margin: 10px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        input {
+            width: 70px;
+        }
+
+        .mode-button {
+            width: 50px;
+        }
+
+        .mode-button:hover {
+            background-color: pink;
+        }
+
+        .mode-button.selected {
+            background-color: cyan;
+        }
+
+        #application-log {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 500px;
+            height: 200px;
+            z-index: 100;
+        }
+
+        p, h1, #close-info-btn {
+            background-color: rgba(255,255,255,0.6);
+            border-radius: 5px;
+        }
+
+        #close-info-btn {
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        #close-info-btn:hover {
+            background-color: rgba(200,200,200,0.6);
+        }
+
+        #info-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2000;
+        }
+
+        @media only screen and (max-width: 768px) {
+            #info-box {
+                font-size: 0.7em; 
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div id="info-box">
+        <h1>Welcome to the Data Editor.</h1>
+        <p>This application was designed for data editing for a non-GIS user. The goal was to streamline the updating of a certain attribute of data and removing all other unecessary functionality. In this case, it is build year for a set of building footprints. When the application starts, you are in "information mode". This means if you click a building, you will view a popup that allows you to learn more. To change data, simply click the calendar button to enter "apply mode" and whatever year you have entered will be applied to any feature you click. </p>
+        <p><i><b>Note: </b> I have no connection with the city of Wewahitchka or its staff. This data is purely fictional and just used to illustrate the application's use.</i></p>
+        <button id="close-info-btn" onclick="document.getElementById('info-box').style.display = 'none'">OK, got it!</button>
+    </div>
+    <div id="viewDiv"></div>
+    <div id="controls">
+        <label for="year">Year:</label>
+        <input type="number" id="year" name="year" value="1940">
+        <button class="mode-button" id="apply-date-btn">
+            <i class="fa-regular fa-calendar"></i>
+        </button>
+        <button class="mode-button" id="what">
+            <i class="fa-solid fa-question"></i>
+        </button>
+    </div>
+
+    <div id="application-log"></div>
+
+    <script>
+        require([
+            "esri/Map",
+            "esri/views/MapView",
+            "esri/layers/FeatureLayer",
+            "esri/layers/TileLayer",
+            "esri/Graphic",
+            "esri/symbols/SimpleMarkerSymbol",
+            "esri/renderers/UniqueValueRenderer"
+            ], function(Map, MapView, FeatureLayer, TileLayer, Graphic, SimpleMarkerSymbol, UniqueValueRenderer) {
+                
+                let applyDateMode = false;
+                let buildYear = 1940;
+                const yearValue = document.getElementById('year');
+                const applyDateBtn = document.getElementById('apply-date-btn');
+                const infoBtn = document.getElementById('what');
+                const logDiv = document.getElementById('application-log');
+                const mapDiv = document.getElementById('viewDiv');
+
+                infoBtn.classList.add('selected');
+
+                var map = new Map({
+                    basemap: "topo-vector"
+                });
+
+                var view = new MapView({
+                    container: "viewDiv",
+                    map: map,
+                    extent: {
+                        xmin: -85.22,
+                        ymin: 30.105,
+                        xmax: -85.18,
+                        ymax: 30.12,
+                        spatialReference: { wkid: 4326 }
+                    }
+                });
+
+                applyDateBtn.addEventListener('click', function() {
+                    applyDateMode = true;
+                    applyDateBtn.classList.add("selected");
+                    infoBtn.classList.remove("selected");
+                    mapDiv.style.cursor = "auto";
+                });
+
+                infoBtn.addEventListener('click', function() {
+                    applyDateMode = false;
+                    applyDateBtn.classList.remove("selected");
+                    infoBtn.classList.add("selected");
+                    mapDiv.style.cursor = "help";
+                });
+                
+                yearValue.addEventListener('change', function() {
+                    buildYear = yearValue.value
+                });
+
+                function addLogMessage(message) {
+                    const p = document.createElement('p');
+                    p.textContent = message;
+                    logDiv.appendChild(p);
+
+                    setTimeout(() => {
+                        p.remove();
+                    }, 5000);
+                }
+
+                var buildingRenderer = {
+                    type: "simple",
+                    symbol: {
+                        type: "simple-fill",
+                        outline: {
+                            width: 0.5,
+                            color: [200, 200, 200, 0.8]
+                        }
+                    },
+                    visualVariables: [
+                        {
+                            type: "color",
+                            field: "buildYear",
+                            stops: [
+                                {
+                                    value: 1940,
+                                    color: "#1a9850",
+                                    label: "1960"
+                                },
+                                {
+                                    value: 1972,
+                                    color: "#fff2cc",
+                                    label: "2000"
+                                },
+                                {
+                                    value: 2024,
+                                    color: "#d73027",
+                                    label: "2040"
+                                }
+                            ],
+                            legendOptions: {
+                                title: "Construction Year"
+                            }
+                        }
+                    ]
+                };
+
+                var buildingLayer = new FeatureLayer({
+                    url: "https://services8.arcgis.com/tblHe99qQFMcNzpC/arcgis/rest/services/PPGIS_Layers/FeatureServer/7",
+                    outFields: ["*"],
+                    renderer: buildingRenderer,
+                    editable: true,
+                    popupTemplate: {
+                        title: `Building Type: {OCC_CLS}`,
+                        content: [{
+                            type: "text",
+                            text: `
+                                <b>Height (m): </b> {HEIGHT}<br>
+                                <b>Footprint (sq ft): </b> {SQFEET}<br>
+                                <b>Build Year: </b> {buildYear}
+                            `
+                        }]
+                    }
+                });
+
+                map.add(buildingLayer);
+
+                view.on('click', function(event) {
+                    if (applyDateMode) {
+                        event.stopPropagation();
+                        
+                        view.hitTest(event).then(function(response) {
+                            if (response.results.length > 0) {
+                                var graphic = response.results[0].graphic;
+
+                                var attributes = {
+                                    buildYear: buildYear
+                                };
+
+                                var updateFeature = {
+                                    attributes: {
+                                        ...graphic.attributes,
+                                        ...attributes
+                                    }
+                                };
+
+                                buildingLayer.applyEdits({
+                                    updateFeatures: [updateFeature]
+                                }).then(function(result) {
+                                    if (result.updateFeatureResults.length > 0) {
+                                        addLogMessage(`Feature updated successfully: Building #${updateFeature.attributes.OBJECTID}: ${buildYear}`);
+                                    }
+                                }).catch(function(error) {
+                                    addLogMessage("Error updating feature:", error);
+                                });
+                            } else {
+                                addLogMessage("No ramp found");
+                            }
+                        });
+                    }
+                });
+
+        });
+    </script>
+</body>
+</html>

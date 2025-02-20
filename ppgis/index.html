@@ -13,14 +13,51 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-x: auto;
+            overflow: hidden;
         }
         #application-container {
+            height: 90vh;
+            min-width: min-content;
+        }
+        #application-content-container {
+            display: flex;
+            position: relative;
+            overflow: hidden;
+            height: 90vh;
+            width: 100vw;
+        }
+        #application-types {
+            width: 100vw;
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .application-type {
+            padding: 10px;
+            background-color: azure;
+            border-radius: 10%;
+            border-style: solid;
+            border-width: 0px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .selected {
+            background-color: blue;
+            color: white;
+        }
+        .application-box-container {
             display: flex;
             gap: 20px;
             padding: 20px;
-            height: 90vh;
-            min-width: min-content;
+            position: absolute;
+            width: 98%;
+            transition: transform 0.5s ease;
+        }
+        #public-input-applications {
+            transform: translateX(0);
+        }
+        #public-works-applications {
+            transform: translateX(100%);
         }
         .application-box {
             width: 100%;
@@ -61,10 +98,15 @@
         }
         a {
             text-decoration: none;
+            flex: 1;
         }
         @media (max-width: 900px) {
             body, html {
                 overflow-y: hidden;
+            }
+            .application-box-container {
+                flex-direction: column;
+                width: 90vw;
             }
             #application-container {
                 flex-direction: column;
@@ -87,21 +129,67 @@
 </head>
 <body>
     <div id="application-container">
-        <a href="expansion/index.html"> <div class="application-box" id="expansion">
-            <img src="expansion/expansion.png" class="application-image">
-            <h3>City Limits Expansion Feedback</h3>
-            <p>A simple application to allow residents to offer feedback on an upcoming city limits expansion based on areas identified for potential growth.</p>
-        </div> </a>
-        <a href="doubleclick/index.html"> <div class="application-box" id="doubleclick">
-            <img src="doubleclick/doubleclick.png" class="application-image">
-            <h3>Double-click Cimments</h3>
-            <p>A <i>very</i> simple application for collecting public comments on various topics. Comments can be added with a simple double-click. Customizable. </p>
-        </div> </a>
-        <a href="xmaslights/index.html"> <div class="application-box" id="xmaslights">
-            <img src="xmaslights/xmaslights.png" class="application-image">
-            <h3>Christmas Lights Report</h3>
-            <p>A bit of winter fun. Report your Christmas lights sighting for others to see amidst a very unlikely snowstorm in Florida.</p>
-        </div> </a>
+        <div id="application-types">
+            <button class="application-type selected" id="public-input-apps">Public Input</button>
+            <button class="application-type" id="public-works-apps">Public Works</button>
+        </div>
+        <div id="application-content-container">
+            <div class="application-box-container" id="public-input-applications">
+                <a href="expansion/index.html"> <div class="application-box" id="expansion">
+                    <img src="expansion/expansion.png" class="application-image">
+                    <h3>City Limits Expansion Feedback</h3>
+                    <p>A simple application to allow residents to offer feedback on an upcoming city limits expansion based on areas identified for potential growth.</p>
+                </div> </a>
+                <a href="doubleclick/index.html"> <div class="application-box" id="doubleclick">
+                    <img src="doubleclick/doubleclick.png" class="application-image">
+                    <h3>Double-click Comments</h3>
+                    <p>A <i>very</i> simple application for collecting public comments on various topics. Comments can be added with a simple double-click. Customizable. </p>
+                </div> </a>
+                <a href="xmaslights/index.html"> <div class="application-box" id="xmaslights">
+                    <img src="xmaslights/xmaslights.png" class="application-image">
+                    <h3>Christmas Lights Report</h3>
+                    <p>A bit of winter fun. Report your Christmas lights sighting for others to see amidst a very unlikely snowstorm in Florida.</p>
+                </div> </a>
+            </div>
+            <div class="application-box-container" id="public-works-applications">
+                <a href="street-signs/index.html"> <div class="application-box" id="street-signs">
+                    <img src="street-signs/street-signs.png" class="application-image">
+                    <h3>Street Sign Survey</h3>
+                    <p>A one stop shop for collecting and visulizing a dual-purpose streetsign and streetlight inventory.</p>
+                </div> </a>
+                <a href="report-management/index.html"> <div class="application-box" id="report-management">
+                    <img src="report-management/report-management.png" class="application-image">
+                    <h3>Public Report Manager</h3>
+                    <p>The city side application for managing reports from residents about publics work issues. Includes status management and report generation.  </p>
+                </div> </a>
+                <a href="data-editor/index.html"> <div class="application-box" id="data-editor">
+                    <img src="data-editor/data-editor.png" class="application-image">
+                    <h3>Simple Data Editor</h3>
+                    <p>A focused application for editing data attributes within public datasets (in this case, build years for structural footprints).</p>
+                </div> </a>
+            </div>
+        </div>
     </div>
+
+    <script>
+        const inputButton = document.getElementById('public-input-apps');
+        const worksButton = document.getElementById('public-works-apps');
+        const inputApps = document.getElementById('public-input-applications');
+        const worksApps = document.getElementById('public-works-applications');
+
+        inputButton.addEventListener('click', function() {
+            inputButton.classList.add('selected');
+            worksButton.classList.remove('selected');
+            inputApps.style.transform = 'translateX(0)';
+            worksApps.style.transform = 'translateX(100%)';
+        });
+
+        worksButton.addEventListener('click', function() {
+            worksButton.classList.add('selected');
+            inputButton.classList.remove('selected');
+            inputApps.style.transform = 'translateX(-100%)';
+            worksApps.style.transform = 'translateX(0)';
+        });
+    </script>
 </body>
 </html>

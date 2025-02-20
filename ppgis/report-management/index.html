@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public Report Management</title>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.31/"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="info-box">
+    <h1>Welcome to the Report Manager.</h1>
+    <p>This application is intended for city staff to manage incoming reports from the public on semi-urgent issues. Since there is no public for this demo app, you can add reports witht the plus in the top left. Reports can be filtered by status or type in the top left. If you click a report, you can update the status. And a report can be generated in the bottom left showing you when the report was submitted, resolved, and how long it took to do be resolved. </p>
+    <p><i><b>Note: </b> I have no connection with the city of Wewahitchka or its staff. This data is purely fictional and just used to illustrate the application's use.</i></p>
+    <button id="close-info-btn" onclick="document.getElementById('info-box').style.display = 'none'">OK, got it!</button>
+  </div>
+  <div id="viewDiv"></div>
+  <button id="addPointButton" title="Add new report" >+</button>
+  <button id="locationConfirmButton">
+    <i class="fa-solid fa-check"></i>
+  </button>
+  <div id="statusFilter">
+    <h4>Status Filter</h4>
+    <button id="toggleNew" class="statusBtn" data-status="New" style="background-color: lightgreen;">New</button>
+    <button id="toggleDepartmentNotified" class="statusBtn" data-status="Department Notified">Department Notified</button>
+    <button id="toggleCrewsDispatched" class="statusBtn" data-status="Crews Dispatched">Crews Dispatched</button>
+    <button id="toggleInProgress" class="statusBtn" data-status="In Progress">In Progress</button>
+    <button id="toggleResolved" class="statusBtn" data-status="Resolved">Resolved</button>
+  </div>
+
+  <div id="typeFilter">
+    <h4>Type Filter</h4>
+    <button id="togglePowerOutage" class="typeBtn" data-type="Power Outage" style="background-color: lightgreen;">Power Outage</button>
+    <button id="toggleWaterMain" class="typeBtn" data-type="Water Main Break" style="background-color: lightgreen;">Water Main Break</button>
+    <button id="toggleTraffic" class="typeBtn" data-type="Traffic Issue" style="background-color: lightgreen;">Traffic Issue</button>
+    <button id="toggleAnimal" class="typeBtn" data-type="Animal Control" style="background-color: lightgreen;">Animal Control</button>
+    <button id="toggleOther" class="typeBtn" data-type="Other" style="background-color: lightgreen;">Other</button>
+  </div>
+  
+  <div id="downloadReport">
+    <label for="startDate">Start Date:</label>
+    <input type="date" class="reportDate" id="startDate">
+    
+    <label for="endDate">End Date:</label>
+    <input type="date" class="reportDate" id="endDate">
+    
+    <button id="downloadReportBtn" class="modalBtn">Download Report</button>
+  </div>
+
+  <div id="reportModal" class="modal">
+    <div class="modal-content">
+        <select id="categoryDropdown" class="dropdown">
+            <option value="None">Select a type of issue to report:</option>
+            <option value="Power Outage">Power Outage</option>
+            <option value="Water Main Break">Water Main Break</option>
+            <option value="Traffic Issue">Traffic Issue</option>
+            <option value="Animal Control">Animal Control</option>
+            <option value="Other">Other</option>
+        </select>
+        <label><b>Add a Comment: </b></label>
+        <textarea id="commentField" class="text-input" rows="5" cols="50" placeholder="Type your comment here..."></textarea>
+        <div id="notification-box"><label><b>Resident wants to be notified about updates</b></label><input type="checkbox" id="notification-check" value="no"></div>
+            <textarea id="emailField" class="notification-input" rows="1" cols="30" placeholder="Email Address..."></textarea>
+        <button id="submitComment" class="modalBtn">Submit Comment</button>
+        <button id="cancelComment" class="modalBtn">Cancel</button>
+        <button id="adjustLocation" class="modalBtn">Adjust Location</button>
+
+    </div>
+  </div>
+
+  <div id="reportsTableContainer">
+    <table id="reportsTable">
+      <thead>
+        <tr>
+          <th class="table-th">Date</th>
+          <th class="table-th">Type</th>
+          <th class="table-th">Comment</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  
+  <button id="toggleTableBtn">
+    Show New Reports
+  </button>
+  
+  <script src="script.js"></script>
+</body>
+</html>

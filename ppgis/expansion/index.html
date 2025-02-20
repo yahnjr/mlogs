@@ -29,22 +29,7 @@
       outline: none; 
       width: 5px;
       height: 5px;
-    }
-
-    .welcome-box {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: white;
-      padding: 10px;
-      border: 1px solid #ddd;
-      z-index: 1;
-      max-width: 350px;
-      height: auto;
-      font-size: 11px;
-    }
-    
+    }    
     
     #banner {
       position: absolute;
@@ -56,12 +41,6 @@
       text-align: right;
       text-shadow: 0 0 8px rgba(255,255,255, 1),
       0 0 15px rgba(255, 255,255, 0.7);
-    }
-    
-    @media only screen and (min-width: 768px) {
-      .welcome-box {
-        font-size: 16px;
-      }
     }
 
     h1, h2 {
@@ -170,15 +149,43 @@
       border-bottom: 3px solid white;
       transform: rotate(45deg);
     }
+    p, h1, #close-info-btn {
+        background-color: rgba(255,255,255,0.6);
+        border-radius: 5px;
+    }
+
+    #close-info-btn {
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    #close-info-btn:hover {
+        background-color: rgba(200,200,200,0.6);
+    }
+
+    #info-box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2000;
+    }
+
+    @media only screen and (max-width: 768px) {
+        #info-box {
+            font-size: 0.7em; 
+        }
+    }
   </style>
 </head>
 <body>
+  <div id="info-box">
+    <h1>Welcome to the City Limits Expansion Feedback Application.</h1>
+    <p>Although offering comments and feedback in specific locations is important, sometimes the public's opinion on wider areas can be important as well. In the process of expanding a city's boundary, local residents' preferences for how various areas develop can be very informative. Click an area within the pink expansion area to assign a category. When you are finished, click "Submit Changes" to view how others have weighed in. </p>
+    <p><i><b>Note: </b> I have no connection with the city of Wewahitchka or its staff. This data is purely fictional and just used to illustrate the application's use.</i></p>
+    <button id="close-info-btn" onclick="document.getElementById('info-box').style.display = 'none'">OK, got it!</button>
+  </div>  
   <h1 id="banner">Wewahitchka City Limits Expansion</h1>
   <div class="viewDiv" id="viewDiv1">
-    <div class="welcome-box">
-      <p>Welcome! Please click on a tax lot or group of tax lots within the study area on the map and indicate what land use you envision for that site: “Housing/Parks,” “Employment,” or “No Development.” When you have completed your selections, click "Submit Changes" to see how other community members have commented on potential UGB expansion.</p>
-      <span class="close-button" onclick="document.querySelector('.welcome-box').style.display = 'none'">x</span>
-    </div>
     <button id="applyButton" class="info-button">Submit Changes</button>
   </div>
   <div id="dropdown">
@@ -231,443 +238,443 @@
         container: "viewDiv1",
         map: map,
         extent: {
-          xmin: -85.248,
-          ymin: 30.038,
-          xmax: -85.132,
-          ymax: 30.153,
-      spatialReference: { wkid: 4326 }
-      }
-    });
-
-    var map2 = new Map({
-      basemap: "hybrid"
-    });
-
-    var view2 = new MapView({
-      container: "viewDiv2",
-      map: map2,
-      extent: {
-      xmin: -85.25,
-        ymin: 30.07,
-        xmax: -85.15,
-        ymax: 30.15,
-        spatialReference: { wkid: 4326 }
-      }
-    });
-  
-    var renderer = new UniqueValueRenderer({
-      field: "expansiontype",
-      defaultSymbol: { type: "simple-fill", color: [255, 255, 255, 0], outline: { color: [255, 255, 255, 0], width: 0 } }, 
-      uniqueValueInfos: [
-        { value: "Employment", symbol: { type: "simple-fill", color: [0, 0, 255, 0.7] } }, 
-        { value: "Housing", symbol: { type: "simple-fill", color: [255, 255, 0, 0.7] } },
-        { value: "No Development", symbol: {type: "simple-fill", color: [100, 100, 100, 0.7]} }
-      ]
-    });
-
-    var geojsonLayer = new GeoJSONLayer({
-      url: "taxlots.geojson",
-      renderer: renderer,
-      outFields: ['*']
-    });
-
-    var ugbUrl = "https://services8.arcgis.com/tblHe99qQFMcNzpC/arcgis/rest/services/PPGIS_Layers/FeatureServer/4";
-    var ugbLayer = new FeatureLayer({
-      url: ugbUrl,
-      renderer: {
-        type: "simple",
-        symbol: {
-          type: "simple-fill",
-          color: [220, 220, 220, 0.5], 
-          outline: {
-            color: [0, 0, 255, 1], 
-            width: 2 
-          }
+            xmin: -85.248,
+            ymin: 30.038,
+            xmax: -85.132,
+            ymax: 30.163,
+            spatialReference: { wkid: 4326 }
         }
-      }
-    });
-
-    var taxlotUrl = "https://services8.arcgis.com/tblHe99qQFMcNzpC/arcgis/rest/services/PPGIS_Layers/FeatureServer/5";
-    var taxlotLayer = new FeatureLayer({
-      url: taxlotUrl,
-      renderer: {
-        type: "simple",
-        symbol: {
-          type: "simple-fill",
-          color: [0, 0, 255, 0], 
-          outline: {
-            color: [255, 255, 255, 1], 
-            width: 1 
-          }
-        }
-      }
-    });
-
-    var expansionUrl = "https://services8.arcgis.com/tblHe99qQFMcNzpC/arcgis/rest/services/PPGIS_Layers/FeatureServer/2";
-    var expansionLayer = new FeatureLayer({
-      url: expansionUrl,
-      renderer: {
-        type: "simple",
-        symbol: {
-          type: "simple-fill",
-          color: [0, 0, 255, 0], 
-          outline: {
-            color: [255, 0, 255, 1], 
-            width: 2 
-          }
-        }
-      }
-    });
-
-    map.add(taxlotLayer);
-    map.add(ugbLayer);
-    map.add(expansionLayer);
-    map.add(geojsonLayer);
-
-    var pendingChanges = [];
-    var selectedFeature = null;
-
-    document.addEventListener('click', function(event) {
-      var dropdown = document.getElementById("dropdown");
-      dropdown.style.display = 'none';
-    });
-
-    view.on("click", function(event) {
-      view.hitTest(event).then(function(response) {
-        var dropdown = document.getElementById("dropdown");
-        var results = response.results;
-
-        if (results.length > 0) {
-          var geojsonResult = results.find(result => result.graphic.layer === geojsonLayer);
-
-          if (geojsonResult) {
-            selectedFeature = geojsonResult.graphic;
-
-            dropdown.innerHTML = `
-              <h3>Development Type:</h3>
-              <div class="dropdown-option" onclick="selectExpansionType('Housing')">Housing/Parks</div>
-              <div class="dropdown-option" onclick="selectExpansionType('Employment')">Employment</div>
-              <div class="dropdown-option" onclick="selectExpansionType('No Development')">No Development</div>
-            `;
-
-            dropdown.style.display = "flex";
-            dropdown.style.flexDirection = "column";
-            dropdown.style.top = event.y + "px";
-            dropdown.style.left = event.x + "px";
-          } else {
-            console.log("No GeoJSON feature found in hit test.");
-          }
-        } else {
-          console.log("No features detected in hit test.");
-        }
-      }).catch(function(error) {
-        console.error("Error during hit test:", error);
       });
-    });
 
-    window.selectExpansionType = function(selectedValue) {
-      if (selectedFeature) {
-        var featureId = selectedFeature.attributes.OBJECTID; 
-        
-        addPendingChange(featureId, selectedValue);
+      var map2 = new Map({
+        basemap: "hybrid"
+      });
 
-        var updatedGraphic = new Graphic({
-          geometry: selectedFeature.geometry,
-          attributes: {
-            ...selectedFeature.attributes,
-            expansiontype: selectedValue
-          },
-          symbol: renderer.getSymbol({
-            attributes: {
-              expansiontype: selectedValue
+      var view2 = new MapView({
+        container: "viewDiv2",
+        map: map2,
+        extent: {
+            xmin: -85.248,
+            ymin: 30.038,
+            xmax: -85.132,
+            ymax: 30.163,
+            spatialReference: { wkid: 4326 }
+        }
+      });
+    
+      var renderer = new UniqueValueRenderer({
+        field: "expansiontype",
+        defaultSymbol: { type: "simple-fill", color: [255, 255, 255, 0], outline: { color: [255, 255, 255, 0], width: 0 } }, 
+        uniqueValueInfos: [
+          { value: "Employment", symbol: { type: "simple-fill", color: [0, 0, 255, 0.7] } }, 
+          { value: "Housing", symbol: { type: "simple-fill", color: [255, 255, 0, 0.7] } },
+          { value: "No Development", symbol: {type: "simple-fill", color: [100, 100, 100, 0.7]} }
+        ]
+      });
+
+      var geojsonLayer = new GeoJSONLayer({
+        url: "taxlots.geojson",
+        renderer: renderer,
+        outFields: ['*']
+      });
+
+      var ugbUrl = "https://services8.arcgis.com/tblHe99qQFMcNzpC/arcgis/rest/services/PPGIS_Layers/FeatureServer/4";
+      var ugbLayer = new FeatureLayer({
+        url: ugbUrl,
+        renderer: {
+          type: "simple",
+          symbol: {
+            type: "simple-fill",
+            color: [220, 220, 220, 0.5], 
+            outline: {
+              color: [0, 0, 255, 1], 
+              width: 2 
             }
-          })
+          }
+        }
+      });
+
+      var taxlotUrl = "https://services8.arcgis.com/tblHe99qQFMcNzpC/arcgis/rest/services/PPGIS_Layers/FeatureServer/5";
+      var taxlotLayer = new FeatureLayer({
+        url: taxlotUrl,
+        renderer: {
+          type: "simple",
+          symbol: {
+            type: "simple-fill",
+            color: [0, 0, 255, 0], 
+            outline: {
+              color: [255, 255, 255, 1], 
+              width: 1 
+            }
+          }
+        }
+      });
+
+      var expansionUrl = "https://services8.arcgis.com/tblHe99qQFMcNzpC/arcgis/rest/services/PPGIS_Layers/FeatureServer/2";
+      var expansionLayer = new FeatureLayer({
+        url: expansionUrl,
+        renderer: {
+          type: "simple",
+          symbol: {
+            type: "simple-fill",
+            color: [0, 0, 255, 0], 
+            outline: {
+              color: [255, 0, 255, 1], 
+              width: 2 
+            }
+          }
+        }
+      });
+
+      map.add(taxlotLayer);
+      map.add(ugbLayer);
+      map.add(expansionLayer);
+      map.add(geojsonLayer);
+
+      var pendingChanges = [];
+      var selectedFeature = null;
+
+      document.addEventListener('click', function(event) {
+        var dropdown = document.getElementById("dropdown");
+        dropdown.style.display = 'none';
+      });
+
+      view.on("click", function(event) {
+        view.hitTest(event).then(function(response) {
+          var dropdown = document.getElementById("dropdown");
+          var results = response.results;
+
+          if (results.length > 0) {
+            var geojsonResult = results.find(result => result.graphic.layer === geojsonLayer);
+
+            if (geojsonResult) {
+              selectedFeature = geojsonResult.graphic;
+
+              dropdown.innerHTML = `
+                <h3>Development Type:</h3>
+                <div class="dropdown-option" onclick="selectExpansionType('Housing')">Housing/Parks</div>
+                <div class="dropdown-option" onclick="selectExpansionType('Employment')">Employment</div>
+                <div class="dropdown-option" onclick="selectExpansionType('No Development')">No Development</div>
+              `;
+
+              dropdown.style.display = "flex";
+              dropdown.style.flexDirection = "column";
+              dropdown.style.top = event.y + "px";
+              dropdown.style.left = event.x + "px";
+            } else {
+              console.log("No GeoJSON feature found in hit test.");
+            }
+          } else {
+            console.log("No features detected in hit test.");
+          }
+        }).catch(function(error) {
+          console.error("Error during hit test:", error);
+        });
+      });
+
+      window.selectExpansionType = function(selectedValue) {
+        if (selectedFeature) {
+          var featureId = selectedFeature.attributes.OBJECTID; 
+          
+          addPendingChange(featureId, selectedValue);
+
+          var updatedGraphic = new Graphic({
+            geometry: selectedFeature.geometry,
+            attributes: {
+              ...selectedFeature.attributes,
+              expansiontype: selectedValue
+            },
+            symbol: renderer.getSymbol({
+              attributes: {
+                expansiontype: selectedValue
+              }
+            })
+          });
+
+          view.graphics.remove(selectedFeature);
+          view.graphics.add(updatedGraphic);
+
+          document.getElementById("dropdown").style.display = "none";
+          document.getElementById("dropdown").innerHTML = '';
+        }
+      };
+
+      function addPendingChange(featureId, expansionType) {
+        var existingChange = pendingChanges.find(change => change.id === featureId);
+        if (existingChange) {
+          existingChange.expansiontype = expansionType;
+        } else {
+          pendingChanges.push({ id: featureId, expansiontype: expansionType });
+        }
+        console.log("Pending changes:", pendingChanges);
+      }
+
+      document.getElementById("applyButton").addEventListener("click", function() {
+        const mapview1 = document.getElementById("viewDiv1");
+        const mapview2 = document.getElementById("viewDiv2");
+        const layerSelector = document.getElementById("layerSelector");
+
+        if (pendingChanges.length === 0) {
+          console.log("No changes to apply.");
+          alert("No changes to apply.");
+          return;
+        }
+
+        console.log("Applying changes...");
+
+        pendingChanges.forEach(function(change) {
+          console.log("Updating feature with ID:", change.id, "and expansiontype:", change.expansiontype);
+          updateAGOLLayer(change.id, change.expansiontype);
         });
 
-        view.graphics.remove(selectedFeature);
-        view.graphics.add(updatedGraphic);
+        pendingChanges = [];
+        console.log("Pending changes array reset.");
 
-        document.getElementById("dropdown").style.display = "none";
-        document.getElementById("dropdown").innerHTML = '';
-      }
-    };
+        mapview1.style.zIndex = 1;
+        mapview1.style.pointerEvents = "none";
+        mapview1.style.maxHeight = 0;
 
-    function addPendingChange(featureId, expansionType) {
-      var existingChange = pendingChanges.find(change => change.id === featureId);
-      if (existingChange) {
-        existingChange.expansiontype = expansionType;
-      } else {
-        pendingChanges.push({ id: featureId, expansiontype: expansionType });
-      }
-      console.log("Pending changes:", pendingChanges);
-    }
+        mapview2.style.zIndex = 3;
+        mapview2.style.pointerEvents = "auto";
+        layerSelector.style.display = "block";
 
-    document.getElementById("applyButton").addEventListener("click", function() {
-      const mapview1 = document.getElementById("viewDiv1");
-      const mapview2 = document.getElementById("viewDiv2");
-      const layerSelector = document.getElementById("layerSelector");
-
-      if (pendingChanges.length === 0) {
-        console.log("No changes to apply.");
-        alert("No changes to apply.");
-        return;
-      }
-
-      console.log("Applying changes...");
-
-      pendingChanges.forEach(function(change) {
-        console.log("Updating feature with ID:", change.id, "and expansiontype:", change.expansiontype);
-        updateAGOLLayer(change.id, change.expansiontype);
+        map2.add(taxlotLayer);
+        map2.add(ugbLayer);
+        map2.add(expansionLayer);
+        map2.add(exclusionLayer);
+        console.log("Results map moved to top of stack");
       });
-
-      pendingChanges = [];
-      console.log("Pending changes array reset.");
-
-      mapview1.style.zIndex = 1;
-      mapview1.style.pointerEvents = "none";
-      mapview1.style.maxHeight = 0;
-
-      mapview2.style.zIndex = 3;
-      mapview2.style.pointerEvents = "auto";
-      layerSelector.style.display = "block";
-
-      map2.add(taxlotLayer);
-      map2.add(ugbLayer);
-      map2.add(expansionLayer);
-      map2.add(exclusionLayer);
-      console.log("Results map moved to top of stack");
-    });
-    
-    var agolFeatureLayerUrl = "https://services8.arcgis.com/tblHe99qQFMcNzpC/arcgis/rest/services/PPGIS_Layers/FeatureServer/3"
-
-    var agolFeatureLayer = new FeatureLayer({
-      url: agolFeatureLayerUrl,
-      outFields: ["OBJECTID", "Housing", "Employment", "NoDev"]
-    });
-
-    function updateAGOLLayer(featureId, expansionType) {
-      var query = agolFeatureLayer.createQuery();
-      query.where = "OBJECTID = " + featureId; 
-
-      agolFeatureLayer.queryFeatures(query).then(function(result) {
-        if (result.features.length > 0) {
-          var feature = result.features[0];
-          var attributes = feature.attributes;
-
-          var housingCount = attributes["Housing"] || 0;
-          var employmentCount = attributes["Employment"] || 0;
-          var nodevCount = attributes["NoDev"] || 0;
-
-          console.log("Current counts for feature ID", featureId, "Housing:", housingCount, "Employment:", employmentCount, "No Development: ", nodevCount);
-
-          if (expansionType === "Housing") {
-            housingCount += 1;
-          } else if (expansionType === "Employment") {
-            employmentCount += 1;
-          } else if (expansionType === "No Development") {
-            nodevCount += 1;
-          }
-
-          var updatedFeature = new Graphic({
-            attributes: {
-              OBJECTID: featureId,
-              Housing: housingCount,
-              Employment: employmentCount,
-              NoDev: nodevCount
-            }
-          });
-
-          console.log("Attempting to update feature ID", featureId, "with new Housing count:", housingCount, "and Employment count:", employmentCount, "and nodev count:", nodevCount);
-
-          agolFeatureLayer.applyEdits({
-            updateFeatures: [updatedFeature]
-          }).then(function(response) {
-            console.log("Update successful for feature ID", featureId, "Response:", response); 
-          }).catch(function(error) {
-            console.error("Error updating AGOL layer for feature ID", featureId, "Error:", error); 
-          });
-        } else {
-          console.warn("No feature found in AGOL layer with OBJECTID", featureId);
-        }
-      }).catch(function(error) {
-        console.error("Error querying AGOL layer for feature ID", featureId, "Error:", error);
-      });
-    }
-
-    // Results Map
-    function getMaxValue(layer, field) {
-      var query = layer.createQuery();
-      query.outStatistics = [
-        {
-          onStatisticField: field,
-          outStatisticFieldName: "max_" + field,
-          statisticType: "max"
-        }
-      ];
-
-      return layer.queryFeatures(query).then(function(response) {
-        return response.features[0].attributes["max_" + field];
-      });
-    }
-
-    var popupsBase = {
-        title: "Parcel Details",
-        content: [
-          {
-            type: "text",
-            text: `
-            Housing/Parks Count: {Housing}<br>
-            Employment Count: {Employment}<br>
-            No Development Count: {NoDev}
-            `
-          }
-        ]
-      }
-
-    var housingLayer = new FeatureLayer({
-      url: agolFeatureLayerUrl,
-      popupTemplate: popupsBase,
-      renderer: {
-        type: "simple",
-        symbol: {
-          type: "simple-fill",
-          color: [255, 255, 0, 0.8], 
-          outline: {
-            color: [128, 128, 128, 0.5],
-            width: 1
-          }
-        },
-        visualVariables: [
-          {
-            type: "color",
-            field: "Housing",
-            legendOptions: {
-              title: "Housing/Parks Intensity"
-            },
-            stops: [
-              { value: 0, color: [255, 255, 0, 0] },
-              { value: 10, color: [255, 255, 0, 0.8] }
-            ]
-          }
-        ]
-      }
-    });
-
-    var nodevLayer = new FeatureLayer({
-      url: agolFeatureLayerUrl,
-      popupTemplate: popupsBase,
-      renderer: {
-        type: "simple",
-        symbol: {
-          type: "simple-fill",
-          color: [150, 150, 150, 0.8], 
-          outline: {
-            color: [128, 128, 128, 0],
-            width: 1
-          }
-        },
-        visualVariables: [
-          {
-            type: "color",
-            field: "NoDev",
-            legendOptions: {
-              title: "No Development"
-            },
-            stops: [
-              { value: 0, color: [30, 30, 30, 0] },
-              { value: 10, color: [30, 30, 30, 0.9] }
-            ]
-          }
-        ]
-      }
-    });
-
-    var employmentLayer = new FeatureLayer({
-      url: agolFeatureLayerUrl,
-      popupTemplate: popupsBase,
-      renderer: {
-        type: "simple",
-        symbol: {
-          type: "simple-fill",
-          color: [255, 0, 0, 0.8],
-          outline: {
-            color: [128, 128, 128, 0.5],
-            width: 1
-          }
-        },
-        visualVariables: [
-          {
-            type: "color",
-            field: "Employment",
-            legendOptions: {
-              title: "Employment Intensity"
-            },
-            stops: [
-              { value: 0, color: [0, 0, 255, 0] },
-              { value: 10, color: [0, 0, 255, 0.8] }
-            ]
-          }
-        ]
-      }
-    });
-
-    Promise.all([
-      getMaxValue(housingLayer, "Housing"),
-      getMaxValue(employmentLayer, "Employment"),
-      getMaxValue(nodevLayer, "NoDev")
-    ]).then(function([maxHousing, maxEmployment, maxNoDev]) {
-
-      housingLayer.renderer.visualVariables[0].stops = [
-        { value: 0, color: [255, 255, 0, 0] }, 
-        { value: maxHousing, color: [255, 255, 0, 0.8] }
-      ];
-
-      employmentLayer.renderer.visualVariables[0].stops = [
-        { value: 0, color: [0, 0, 255, 0] }, 
-        { value: maxEmployment, color: [0, 0, 255, 0.8] }
-      ];
       
-      nodevLayer.renderer.visualVariables[0].stops = [
-        { value: 0, color: [30, 30, 30, 0] }, 
-        { value: maxNoDev, color: [30, 30, 30, 0.9] }
-      ];
+      var agolFeatureLayerUrl = "https://services8.arcgis.com/tblHe99qQFMcNzpC/arcgis/rest/services/PPGIS_Layers/FeatureServer/3"
 
-      housingLayer.refresh();
-      employmentLayer.refresh();
-      nodevLayer.refresh();
-    });
+      var agolFeatureLayer = new FeatureLayer({
+        url: agolFeatureLayerUrl,
+        outFields: ["OBJECTID", "Housing", "Employment", "NoDev"]
+      });
 
-    map2.add(housingLayer);
-    map2.add(employmentLayer);
-    map2.add(nodevLayer);
+      function updateAGOLLayer(featureId, expansionType) {
+        var query = agolFeatureLayer.createQuery();
+        query.where = "OBJECTID = " + featureId; 
 
-    document.querySelectorAll('input[name="layer"]').forEach((radio) => {
-      radio.addEventListener('change', (event) => {
-        const selectedLayer = event.target.value;
+        agolFeatureLayer.queryFeatures(query).then(function(result) {
+          if (result.features.length > 0) {
+            var feature = result.features[0];
+            var attributes = feature.attributes;
 
-        if (selectedLayer === 'viewall') {
-          housingLayer.visible = true;
-          employmentLayer.visible = true;
-          nodevLayer.visible = true;
-        } else if (selectedLayer === 'employment') {
-          housingLayer.visible = false;
-          employmentLayer.visible = true;
-          nodevLayer.visible = false;
-        } else if (selectedLayer === 'housing') {
-          housingLayer.visible = true;
-          employmentLayer.visible = false;
-          nodevLayer.visible = false;
-        } else if (selectedLayer === 'nodev') {
-          housingLayer.visible = false;
-          employmentLayer.visible = false;
-          nodevLayer.visible = true;
+            var housingCount = attributes["Housing"] || 0;
+            var employmentCount = attributes["Employment"] || 0;
+            var nodevCount = attributes["NoDev"] || 0;
+
+            console.log("Current counts for feature ID", featureId, "Housing:", housingCount, "Employment:", employmentCount, "No Development: ", nodevCount);
+
+            if (expansionType === "Housing") {
+              housingCount += 1;
+            } else if (expansionType === "Employment") {
+              employmentCount += 1;
+            } else if (expansionType === "No Development") {
+              nodevCount += 1;
+            }
+
+            var updatedFeature = new Graphic({
+              attributes: {
+                OBJECTID: featureId,
+                Housing: housingCount,
+                Employment: employmentCount,
+                NoDev: nodevCount
+              }
+            });
+
+            console.log("Attempting to update feature ID", featureId, "with new Housing count:", housingCount, "and Employment count:", employmentCount, "and nodev count:", nodevCount);
+
+            agolFeatureLayer.applyEdits({
+              updateFeatures: [updatedFeature]
+            }).then(function(response) {
+              console.log("Update successful for feature ID", featureId, "Response:", response); 
+            }).catch(function(error) {
+              console.error("Error updating AGOL layer for feature ID", featureId, "Error:", error); 
+            });
+          } else {
+            console.warn("No feature found in AGOL layer with OBJECTID", featureId);
+          }
+        }).catch(function(error) {
+          console.error("Error querying AGOL layer for feature ID", featureId, "Error:", error);
+        });
+      }
+
+      // Results Map
+      function getMaxValue(layer, field) {
+        var query = layer.createQuery();
+        query.outStatistics = [
+          {
+            onStatisticField: field,
+            outStatisticFieldName: "max_" + field,
+            statisticType: "max"
+          }
+        ];
+
+        return layer.queryFeatures(query).then(function(response) {
+          return response.features[0].attributes["max_" + field];
+        });
+      }
+
+      var popupsBase = {
+          title: "Parcel Details",
+          content: [
+            {
+              type: "text",
+              text: `
+              Housing/Parks Count: {Housing}<br>
+              Employment Count: {Employment}<br>
+              No Development Count: {NoDev}
+              `
+            }
+          ]
+        }
+
+      var housingLayer = new FeatureLayer({
+        url: agolFeatureLayerUrl,
+        popupTemplate: popupsBase,
+        renderer: {
+          type: "simple",
+          symbol: {
+            type: "simple-fill",
+            color: [255, 255, 0, 0.8], 
+            outline: {
+              color: [128, 128, 128, 0.5],
+              width: 1
+            }
+          },
+          visualVariables: [
+            {
+              type: "color",
+              field: "Housing",
+              legendOptions: {
+                title: "Housing/Parks Intensity"
+              },
+              stops: [
+                { value: 0, color: [255, 255, 0, 0] },
+                { value: 10, color: [255, 255, 0, 0.8] }
+              ]
+            }
+          ]
         }
       });
-    });
 
-    view.ui.move("zoom", "bottom-left");
-    view2.ui.move("zoom", "bottom-left");
-  });
+      var nodevLayer = new FeatureLayer({
+        url: agolFeatureLayerUrl,
+        popupTemplate: popupsBase,
+        renderer: {
+          type: "simple",
+          symbol: {
+            type: "simple-fill",
+            color: [150, 150, 150, 0.8], 
+            outline: {
+              color: [128, 128, 128, 0],
+              width: 1
+            }
+          },
+          visualVariables: [
+            {
+              type: "color",
+              field: "NoDev",
+              legendOptions: {
+                title: "No Development"
+              },
+              stops: [
+                { value: 0, color: [30, 30, 30, 0] },
+                { value: 10, color: [30, 30, 30, 0.9] }
+              ]
+            }
+          ]
+        }
+      });
+
+      var employmentLayer = new FeatureLayer({
+        url: agolFeatureLayerUrl,
+        popupTemplate: popupsBase,
+        renderer: {
+          type: "simple",
+          symbol: {
+            type: "simple-fill",
+            color: [255, 0, 0, 0.8],
+            outline: {
+              color: [128, 128, 128, 0.5],
+              width: 1
+            }
+          },
+          visualVariables: [
+            {
+              type: "color",
+              field: "Employment",
+              legendOptions: {
+                title: "Employment Intensity"
+              },
+              stops: [
+                { value: 0, color: [0, 0, 255, 0] },
+                { value: 10, color: [0, 0, 255, 0.8] }
+              ]
+            }
+          ]
+        }
+      });
+
+      Promise.all([
+        getMaxValue(housingLayer, "Housing"),
+        getMaxValue(employmentLayer, "Employment"),
+        getMaxValue(nodevLayer, "NoDev")
+      ]).then(function([maxHousing, maxEmployment, maxNoDev]) {
+
+        housingLayer.renderer.visualVariables[0].stops = [
+          { value: 0, color: [255, 255, 0, 0] }, 
+          { value: maxHousing, color: [255, 255, 0, 0.8] }
+        ];
+
+        employmentLayer.renderer.visualVariables[0].stops = [
+          { value: 0, color: [0, 0, 255, 0] }, 
+          { value: maxEmployment, color: [0, 0, 255, 0.8] }
+        ];
+        
+        nodevLayer.renderer.visualVariables[0].stops = [
+          { value: 0, color: [30, 30, 30, 0] }, 
+          { value: maxNoDev, color: [30, 30, 30, 0.9] }
+        ];
+
+        housingLayer.refresh();
+        employmentLayer.refresh();
+        nodevLayer.refresh();
+      });
+
+      map2.add(housingLayer);
+      map2.add(employmentLayer);
+      map2.add(nodevLayer);
+
+      document.querySelectorAll('input[name="layer"]').forEach((radio) => {
+        radio.addEventListener('change', (event) => {
+          const selectedLayer = event.target.value;
+
+          if (selectedLayer === 'viewall') {
+            housingLayer.visible = true;
+            employmentLayer.visible = true;
+            nodevLayer.visible = true;
+          } else if (selectedLayer === 'employment') {
+            housingLayer.visible = false;
+            employmentLayer.visible = true;
+            nodevLayer.visible = false;
+          } else if (selectedLayer === 'housing') {
+            housingLayer.visible = true;
+            employmentLayer.visible = false;
+            nodevLayer.visible = false;
+          } else if (selectedLayer === 'nodev') {
+            housingLayer.visible = false;
+            employmentLayer.visible = false;
+            nodevLayer.visible = true;
+          }
+        });
+      });
+
+      view.ui.move("zoom", "bottom-left");
+      view2.ui.move("zoom", "bottom-left");
+    });
     
   </script>
   

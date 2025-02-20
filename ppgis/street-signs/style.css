@@ -1,0 +1,134 @@
+body {
+    margin: 0;
+    height: 100vh;
+    width: 100%;
+    padding: 0;
+}
+
+.viewDiv {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: rgb(254, 254, 254);
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid rgb(136, 136, 136);
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+}
+
+#buttonsBox {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    z-index: 1000;
+}
+
+button, .dropdown {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #6d6d6d;
+    color: white;
+}
+
+.fa-solid {
+    font-size: 22pt;
+}
+
+.sign-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+    max-width: 100%;
+}
+
+.sign-option {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0.1rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.2s;
+    font-size: 8pt;
+}
+
+.sign-option:hover {
+    border-color: #666;
+}
+
+.sign-option.selected {
+    border-color: #2196F3;
+    background-color: #bebebe;
+}
+
+.sign-image {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    margin-bottom: 0.1rem;
+}
+
+.sign-label {
+    text-align: center;
+    font-weight: 500;
+}
+
+#other-sign-text {
+    width: 90%;
+    padding: 4px;
+    margin-top: 4px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 8pt;
+}
+
+#streetsignContent, #streetlightContent {
+    display: none;
+}
+
+#locationConfirmButton {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+#locationConfirmButton:hover {
+    background-color: #45a049;
+}

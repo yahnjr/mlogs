@@ -41,32 +41,31 @@
       height: 5px;
     }
 
-    .welcome-box {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%,-50%);
-      background-color: white;
-      padding: 10px;
-      border: 1px solid #ddd;
-      z-index: 1;
-      max-width: 300px;
-      height: 200px; 
-      font-size: 11px;
-    }
-    
-    @media only screen and (min-width: 768px) {
-      .welcome-box {
-        font-size: 16px; 
-      }
+    p, h1, #close-info-btn {
+        background-color: rgba(255,255,255,0.6);
+        border-radius: 5px;
     }
 
-    .close-button {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      cursor: pointer;
-      font-size: 20px;
+    #close-info-btn {
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    #close-info-btn:hover {
+        background-color: rgba(200,200,200,0.6);
+    }
+
+    #info-box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2000;
+    }
+
+    @media only screen and (max-width: 768px) {
+        #info-box {
+            font-size: 0.7em; 
+        }
     }
 
     .info-button {
@@ -106,9 +105,11 @@
 </head>
 <body>
   <div id="viewDiv">
-    <div class="welcome-box">
-      <p>Welcome! Please select a topic from the top right and double-click anywhere on the map to add a comment of your own. Click any other comment to view the contents. Multiple comments are welcome!</p>
-      <span class="close-button" onclick="document.querySelector('.welcome-box').style.display = 'none'">x</span>
+    <div id="info-box">
+      <h1>Welcome to the Comment Application</h1>
+      <p>This application was designed for the easy collection of public comments, without convulted methods for input or viewing other comments. You simply need to select a topic in the top right, and double-click anywhere you would like to add your voice. Clicking another point on the map brings up its contents. Comments can also be liked to show support. </p>
+      <p><i><b>Note: </b> I have no connection with the city of Wewahitchka or its staff. This data is purely fictional and just used to illustrate the application's use.</i></p>
+      <button id="close-info-btn" onclick="document.getElementById('info-box').style.display = 'none'">OK, got it!</button>
     </div>
   </div>
   <div class="topic-buttons">
@@ -133,8 +134,10 @@
       "esri/symbols/SimpleFillSymbol",
       "esri/PopupTemplate",
       "esri/widgets/BasemapToggle",
-      "esri/Basemap"
-    ], function(Map, MapView, FeatureLayer, Graphic, SimpleMarkerSymbol, UniqueValueRenderer, SimpleFillSymbol, PopupTemplate, BasemapToggle, Basemap) {
+      "esri/Basemap",
+      "esri/core/reactiveUtils"
+    ], function(Map, MapView, FeatureLayer, Graphic, SimpleMarkerSymbol, UniqueValueRenderer, SimpleFillSymbol, PopupTemplate, BasemapToggle, Basemap, reactiveUtils) {
+
       var map = new Map({
         basemap: "topo-vector"
       });
@@ -156,7 +159,19 @@
       var featureLayer = new FeatureLayer({
         url: featureLayerUrl,
         outFields: ["*"],
-        editable: true, // Allow editing
+        editable: true,
+        popupTemplate: {
+            title: `{topic}`,
+            content: `
+            <b>Comment: </b> {pubcomment} <br>
+            <span id="like-count-{OBJECTID}">{like_count}</span> 👍
+            `,
+            actions: [{
+                title: "👍 Like",
+                id: "likeComment",
+                className: "esri-icon-thumbs-up"
+            }]
+          }
       });
 
       map.add(featureLayer);
@@ -230,7 +245,7 @@
               width: 1 
             }
           }
-        }
+        },        
       });
 
       map.add(polygonLayer);
@@ -275,27 +290,63 @@
           button.classList.add("selected-topic");
         });
       });
-
-      var popupTemplate = {
-        title: "{topic}",
-        content: [
-          {
-            type: "text",
-            text: "<b>Comment:</b> {pubcomment}"
-          }
-        ]
-      };
-
-      featureLayer.popupTemplate = popupTemplate;
     
       view.popup.collapseEnabled = false;
-      
-      var toggle = new BasemapToggle({
-        view: view,
-        nextBasemap: "hybrid" 
-      });
 
-      view.ui.add(toggle, "bottom-right");
+      function applyLike(event) {
+        console.log("Like action triggered", event);
+        
+        if (event.action.id === "likeComment") {
+            const selectedFeature = view.popup.selectedFeature;
+            
+            if (!selectedFeature) {
+                console.error("No feature selected");
+                return;
+            }
+
+            console.log("Current feature:", selectedFeature);
+            
+            let currentLikes = selectedFeature.attributes.like_count || 0;
+            currentLikes += 1;
+            
+            const updatedFeature = {
+                attributes: {
+                    OBJECTID: selectedFeature.attributes.OBJECTID,
+                    like_count: currentLikes
+                }
+            };
+
+            console.log("Updating like count to:", currentLikes);
+
+            featureLayer.applyEdits({
+                updateFeatures: [updatedFeature]
+            }).then(function(result) {
+                console.log("Like count updated successfully:", result);
+                
+                const likeCountElement = document.getElementById(`like-count-${selectedFeature.attributes.OBJECTID}`);
+                if (likeCountElement) {
+                    likeCountElement.textContent = currentLikes;
+                }
+
+                view.popup.refresh();
+            }).catch(function(error) {
+                console.error("Error updating like count:", error);
+            });
+        }
+    }
+
+    reactiveUtils.on(
+        () => view.popup,
+        "trigger-action",
+        applyLike
+    );
+      
+    var toggle = new BasemapToggle({
+      view: view,
+      nextBasemap: "hybrid" 
+    });
+
+    view.ui.add(toggle, "bottom-right");
 });
     
   </script>

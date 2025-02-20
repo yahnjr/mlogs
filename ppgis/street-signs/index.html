@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Street Sign Survey</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.29/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.29/"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="viewDiv" id="map"></div>
+    <div id="buttonsBox">
+        <button class="addButton" id="addStreetsign"><i class="fa-solid fa-sign-hanging"></i></button>
+        <button class="addButton" id="addStreetlight"><i class="fa-solid fa-lightbulb"></i></button>
+    </div>
+    <button id="locationConfirmButton">
+        <i class="fa-solid fa-check"></i>
+    </button>
+    <div id="reportModal" class="modal">
+        <div class="modal-content">
+            <div id="streetsignContent">
+                <div class="sign-grid" id="streetsignGrid">
+                    <div class="sign-option" data-value="Stop Sign">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Stopsign.svg" alt="Stop Sign" class="sign-image">
+                        <span class="sign-label">Stop Sign</span>
+                    </div>
+                    <div class="sign-option" data-value="Stop Ahead">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/MUTCD_W3-1_%28non-compliant_4%29.svg" alt="Stop Ahead" class="sign-image">
+                        <span class="sign-label">Stop Ahead</span>
+                    </div>
+                    <div class="sign-option" data-value="Traffic Light">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/LED_traffic_light.svg" alt="Traffic Light" class="sign-image">
+                        <span class="sign-label">Traffic Light</span>
+                    </div>
+                    <div class="sign-option" data-value="Yield Sign">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/39/MUTCD_R1-2.svg" alt="Yield Sign" class="sign-image">
+                        <span class="sign-label">Yield Sign</span>
+                    </div>
+                    <div class="sign-option" data-value="Speed Limit">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Oregon-speed.svg" alt="Speed Limit" class="sign-image">
+                        <span class="sign-label">Speed Limit</span>
+                    </div>
+                    <div class="sign-option" data-value="Railroad Crossing">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/MUTCD_W10-1_%28non-compliant%29.svg" alt="Railroad Crossing" class="sign-image">
+                        <span class="sign-label">Railroad Crossing</span>
+                    </div>
+                    <div class="sign-option" data-value="Crosswalk">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/23/MUTCD_Sign_Assembly_-_W11-2_with_W16-7PL.svg" alt="Crosswalk" class="sign-image">
+                        <span class="sign-label">Crosswalk</span>
+                    </div>
+                    <div class="sign-option" data-value="Roundabout">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/MUTCD_Sign_Assembly_-_W2-6_with_W16-12aP.svg" alt="Roundabout" class="sign-image">
+                        <span class="sign-label">Roundabout</span>
+                    </div>
+                    <div class="sign-option" data-value="Slow">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/United_States_sign_-_Slow.svg" alt="Slow" class="sign-image">
+                        <span class="sign-label">Slow</span>
+                    </div>
+                    <div class="sign-option" data-value="Slow Traffic Ahead">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/United_States_sign_-_Slow_Traffic_Ahead.svg" alt="Slow Traffic Ahead" class="sign-image">
+                        <span class="sign-label">Slow Traffic Ahead</span>
+                    </div>
+                    <div class="sign-option" data-value="One Way">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/MUTCD_R6-2L.svg" alt="One Way" class="sign-image">
+                        <span class="sign-label">One Way</span>
+                    </div>
+                    <div class="sign-option" data-value="School Zone">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/62/MUTCD-CA_SW24-1.svg" alt="School Zone" class="sign-image">
+                        <span class="sign-label">School Zone</span>
+                    </div>
+                    <div class="sign-option" data-value="Curvy Road">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/CL_road_sign_PG-4a.svg" alt="Curvy Road" class="sign-image">
+                        <span class="sign-label">Curvy Road</span>
+                    </div>
+                    <div class="sign-option" data-value="No Parking">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/bb/MUTCD_R8-3.svg" alt="No Parking" class="sign-image">
+                        <span class="sign-label">No Parking</span>
+                    </div>
+                    <div class="sign-option" data-value="Other" id="other-sign-option">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Icon-round-Question_mark.svg" alt="Other Sign" class="sign-image">
+                        <input type="text" id="other-sign-text">
+                    </div>
+                </div>
+                <select id="streetsignReflective" class="dropdown">
+                    <option value="None">Reflective?</option>
+                    <option value="Reflective">Yes</option>
+                    <option value="Unreflective">No</option>
+                </select>
+            </div>
+            <div id="streetlightContent">
+                <select id="streetlightType" class="dropdown">
+                    <option value="None">Select Streetlight Type:</option>
+                    <option value="Standalone">Standalone</option>
+                    <option value="Power Pole-Mounted">Power Pole-Mounted</option>
+                    <option value="Building-Mounted">Building-Mounted</option>
+                </select>
+            </div>
+            <button id="submitReport" class="submitBtn">Submit Report</button>
+            <button id="cancelReport" class="cancelBtn">Cancel</button>
+            <button id="adjustLocation" class="locationBtn">Adjust Location</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
