@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Public Comment GIS Applications</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         body, html {
             width: 100%;
@@ -33,16 +34,27 @@
             margin-bottom: 20px;
         }
         .application-type {
-            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 25px;
             background-color: azure;
-            border-radius: 10%;
+            border-radius: 10px;
             border-style: solid;
             border-width: 0px;
             cursor: pointer;
             transition: background-color 0.3s;
+            gap: 8px;
+        }
+
+        .application-type i {
+            font-size: 1.5em;
+        }
+        .application-type:hover {
+            background-color: #758a94;
         }
         .selected {
-            background-color: blue;
+            background-color: #0c3d3c;
             color: white;
         }
         .application-box-container {
@@ -130,8 +142,8 @@
 <body>
     <div id="application-container">
         <div id="application-types">
-            <button class="application-type selected" id="public-input-apps">Public Input</button>
-            <button class="application-type" id="public-works-apps">Public Works</button>
+            <button class="application-type selected" id="public-input-apps"><i class="fa-solid fa-clipboard-list"></i>Public Input</button>
+            <button class="application-type" id="public-works-apps"><i class="fa-solid fa-person-digging"></i>Public Works</button>
         </div>
         <div id="application-content-container">
             <div class="application-box-container" id="public-input-applications">
