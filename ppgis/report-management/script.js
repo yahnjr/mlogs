@@ -158,7 +158,7 @@ require([
     };
 
     var reportsLayerBottom = new FeatureLayer({
-        url: "https://services8.arcgis.com/tblHe99qQFMcNzpC/arcgis/rest/services/PPGIS_Layers/FeatureServer/13",
+        url: "https://services5.arcgis.com/hCmfQc6qPTKFJj8T/arcgis/rest/services/PPGIS%20Layers/FeatureServer/0",
         outFields: ["*"],
         renderer: statusRenderer,
         editable: true,
@@ -171,7 +171,7 @@ require([
     const resolvedAction = { title: "Resolved", id: "resolved", className: "esri-icon-check-mark" };
 
     var reportsLayerTop = new FeatureLayer({
-        url: "https://services8.arcgis.com/tblHe99qQFMcNzpC/arcgis/rest/services/PPGIS_Layers/FeatureServer/13",
+        url: "https://services5.arcgis.com/hCmfQc6qPTKFJj8T/arcgis/rest/services/PPGIS%20Layers/FeatureServer/0",
         outFields: ["*"],
         renderer: typeRenderer,
         editable: true,

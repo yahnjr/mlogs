@@ -215,7 +215,7 @@ require([
         });
 
         var reportsLayer = new FeatureLayer({
-            url: "https://services8.arcgis.com/tblHe99qQFMcNzpC/arcgis/rest/services/PPGIS_Layers/FeatureServer/12",
+            url: "https://services5.arcgis.com/hCmfQc6qPTKFJj8T/arcgis/rest/services/PPGIS%20Layers/FeatureServer/1",
             popupTemplate: streetsignPopupTemplate,
             outFields: ['*'],
             editable: true,
@@ -224,7 +224,7 @@ require([
         });
 
         var streetlightLayer = new FeatureLayer({
-            url: "https://services8.arcgis.com/tblHe99qQFMcNzpC/arcgis/rest/services/PPGIS_Layers/FeatureServer/12",
+            url: "https://services5.arcgis.com/hCmfQc6qPTKFJj8T/arcgis/rest/services/PPGIS%20Layers/FeatureServer/1",
             popupTemplate: streetlightPopupTemplate,
             outFields: ['*'],
             editable: true,
